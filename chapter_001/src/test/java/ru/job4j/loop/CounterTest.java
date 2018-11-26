@@ -6,7 +6,7 @@ import static org.junit.Assert.assertThat;
 
 public class CounterTest {
     @Test
-    public void whenFirstLesserSecond() {
+    public void whenOneToTenThenThirty() {
         Counter count = new Counter();
         assertThat(count.add(1, 10), is(30));
     }
