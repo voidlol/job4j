@@ -17,8 +17,9 @@ public class Board {
             for (int j = 0; j < height; j++) {
                 if ((i + j) % 2 == 0) {
                     result.append("X");
-                } else
+                } else {
                     result.append(" ");
+                }
             }
             result.append(ln);
         }
