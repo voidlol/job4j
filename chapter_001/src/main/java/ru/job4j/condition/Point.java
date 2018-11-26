@@ -1,5 +1,11 @@
 package ru.job4j.condition;
 
+/**
+ * @author Andrey Savelov (udroguedozed@gmail.com)
+ * @version $Id$
+ * @since 0.1
+ */
+
 public class Point {
     private int x;
     private int y;
