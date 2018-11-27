@@ -79,6 +79,9 @@ public class Logic {
             if (rowRes == table.length || cellRes == table.length) {
                 result = true;
                 break;
+            } else {
+                rowRes = 0;
+                cellRes = 0;
             }
         }
         return result;
