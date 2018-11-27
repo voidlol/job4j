@@ -28,6 +28,7 @@ public class ArrayChar {
             }
             if (value[index] != this.data[index]) {
                 result = false;
+                break;
             }
         }
         return result;
