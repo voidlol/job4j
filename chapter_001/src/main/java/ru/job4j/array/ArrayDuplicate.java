@@ -9,6 +9,12 @@ import java.util.Arrays;
  */
 
 public class ArrayDuplicate {
+
+    /**
+     * Удаление дубликатов из массива
+     * @param array - массив
+     * @return - массив без дубликатов
+     */
     public String[] remove(String[] array) {
         int endIndex = array.length - 1;
         int loopSize = array.length;
