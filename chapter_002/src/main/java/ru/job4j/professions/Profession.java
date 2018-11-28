@@ -5,6 +5,6 @@ public class Profession {
     private String profession;
 
     public String getName() {
-
+        return this.name;
     }
 }
