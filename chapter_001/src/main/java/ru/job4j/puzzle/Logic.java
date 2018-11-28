@@ -72,6 +72,8 @@ public class Logic {
         int rowRes = 0;
         int cellRes = 0;
         for (int row = 0; row < table.length; row++) {
+            rowRes = 0;
+            cellRes = 0;
             for (int cell = 0; cell < table.length; cell++) {
                 rowRes = rowRes + table[row][cell];
                 cellRes = cellRes + table[cell][row];
@@ -79,9 +81,6 @@ public class Logic {
             if (rowRes == table.length || cellRes == table.length) {
                 result = true;
                 break;
-            } else {
-                rowRes = 0;
-                cellRes = 0;
             }
         }
         return result;
