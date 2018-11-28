@@ -12,7 +12,6 @@ public class Board {
     public String paint(int wight, int height) {
         StringBuilder result = new StringBuilder();
         String ln = System.lineSeparator();
-
         for (int i = 0; i < wight; i++) {
             for (int j = 0; j < height; j++) {
                 if ((i + j) % 2 == 0) {
@@ -23,7 +22,6 @@ public class Board {
             }
             result.append(ln);
         }
-
         return result.toString();
     }
 }
