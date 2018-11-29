@@ -13,7 +13,7 @@ import java.util.*;
 public class Tracker {
     private Item[] items = new Item[100];
     private int index = 0;
-    private final static Random RN = new Random();
+    private static final Random RN = new Random();
 
     /**
      * Добавить новую заявку
@@ -33,11 +33,11 @@ public class Tracker {
      */
     public boolean replace(String id, Item item) {
         boolean result = false;
-        for (int index = 0; index < this.index; index++) {
-            if (this.items[index].getId().equals(id)) {
+        for (int i = 0; i < this.index; i++) {
+            if (this.items[i].getId().equals(id)) {
                 result = true;
-                item.setId(this.items[index].getId());
-                this.items[index] = item;
+                item.setId(this.items[i].getId());
+                this.items[i] = item;
                 break;
             }
         }
@@ -50,10 +50,10 @@ public class Tracker {
      */
     public boolean delete(String id) {
         boolean result = false;
-        for (int index = 0; index < this.index; index++) {
-            if (this.items[index].getId().equals(id)) {
+        for (int i = 0; i < this.index; i++) {
+            if (this.items[i].getId().equals(id)) {
                 result = true;
-                System.arraycopy(this.items, index + 1, this.items, index, this.index - index - 1);
+                System.arraycopy(this.items, i + 1, this.items, i, this.index - i - 1);
                 this.index--;
                 break;
             }
@@ -92,13 +92,13 @@ public class Tracker {
      */
     public Item[] findByName(String name) {
         Item[] tmp = new Item[this.index];
-        int index = 0;
+        int i = 0;
         for (Item item : this.items) {
             if (item != null && item.getName().equals(name)) {
-                tmp[index++] = item;
+                tmp[i++] = item;
             }
         }
-        return Arrays.copyOf(tmp, index);
+        return Arrays.copyOf(tmp, i);
     }
 
     private String generateId() {
