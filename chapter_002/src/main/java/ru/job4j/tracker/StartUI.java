@@ -25,25 +25,25 @@ public class StartUI {
             this.showMenu();
             String answer = this.input.getString("Выберите пункт меню: ");
             switch (answer) {
-                case "0":
+                case ADD:
                     this.addNew();
                     break;
-                case "1":
+                case SHOW:
                     this.show();
                     break;
-                case "2":
+                case EDIT:
                     this.edit();
                     break;
-                case "3":
+                case DELETE:
                     this.delete();
                     break;
-                case "4":
+                case FIND_BY_ID:
                     this.findById();
                     break;
-                case "5":
+                case FIND_BY_NAME:
                     this.findByName();
                     break;
-                case "6":
+                case EXIT:
                     exit = true;
                     break;
                 default:
