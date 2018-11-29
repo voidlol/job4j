@@ -55,7 +55,7 @@ public class StartUI {
     }
 
     private void showMenu() {
-        System.out.println("============МЕНЮ============");
+        System.out.println("============МЕНЮ===========");
         System.out.println("0. Добавить новую заявку");
         System.out.println("1. Показать все заявки");
         System.out.println("2. Изменить заявку");
@@ -63,11 +63,11 @@ public class StartUI {
         System.out.println("4. Поиск заявки по ID");
         System.out.println("5. Поиск заявок по имени");
         System.out.println("6. Выход");
-        System.out.println("============================");
+        System.out.println("===========================");
     }
 
     private void addNew() throws IOException {
-        System.out.println("===Добавление новой заявки===");
+        System.out.println("==Добавление новой заявки==");
         String name = this.input.getString("Введите имя заявки: ");
         String desc = this.input.getString("Введите описание заявки: ");
         Item item = new Item(name, desc);
@@ -76,27 +76,37 @@ public class StartUI {
     }
 
     private void edit() throws IOException {
-        System.out.println("===Изменить заявку===");
+        System.out.println("======Изменить заявку======");
         String id = this.input.getString("Введите ID заявки: ");
         String name = this.input.getString("Введите имя заявки: ");
         String desc = this.input.getString("Введите описание заявки: ");
         Item item = new Item(name, desc);
-        this.tracker.replace(id, item);
-        System.out.println("Новая заявка с ID: " + item.getId());
+        if (this.tracker.replace(id, item)) {
+            System.out.println("Новая заявка с ID: " + item.getId());
+        } else {
+            System.out.println("Заявка с ID: " + id + " не найдена.");
+        }
     }
 
     private void delete() throws IOException {
-        System.out.println("===Удалить заявку===");
+        System.out.println("=======Удалить заявку======");
         String id = this.input.getString("Введите ID заявки: ");
-        this.tracker.delete(id);
-        System.out.println("Заявка с ID: " + id + " удалена");
+        if (this.tracker.delete(id)) {
+            System.out.println("Заявка с ID: " + id + " удалена");
+        } else {
+            System.out.println("Заявка с ID: " + id + " не найдена.");
+        }
     }
 
     private void findById() throws IOException {
-        System.out.println("===Поиск заявки по ID===");
+        System.out.println("=====Поиск заявки по ID====");
         String id = this.input.getString("Введите ID заявки: ");
         Item item = this.tracker.findById(id);
-        System.out.println("Заявка с ID: " + item.getName() + System.lineSeparator() + item.getDescription());
+        if (item != null) {
+            System.out.println("Заявка с ID: " + item.getName() + System.lineSeparator() + item.getDescription());
+        } else {
+            System.out.println("Заявка с ID: " + id + " не найдена.");
+        }
     }
 
     private void findByName() throws IOException {
@@ -109,7 +119,7 @@ public class StartUI {
     }
 
     private void show() {
-        System.out.println("===Показать все заявки===");
+        System.out.println("====Показать все заявки====");
         Item[] items = this.tracker.findAll();
         for (Item item: items) {
             System.out.println("Заявка: " + item.getName() + System.lineSeparator() + item.getDescription());

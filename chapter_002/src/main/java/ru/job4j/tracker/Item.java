@@ -14,7 +14,6 @@ public class Item {
     private String id;
     private String description;
     private long created;
-    private final static Random RN = new Random();
 
     /**
      * Конструктор заявки
@@ -25,7 +24,6 @@ public class Item {
         this.name = name;
         this.description = description;
         this.setCreated();
-        this.setId(generateId());
     }
 
     public void setId(String id) {
@@ -58,9 +56,5 @@ public class Item {
 
     public long getCreated() {
         return this.created;
-    }
-
-    private String generateId() {
-        return String.valueOf(System.currentTimeMillis() + RN.nextInt());
     }
 }

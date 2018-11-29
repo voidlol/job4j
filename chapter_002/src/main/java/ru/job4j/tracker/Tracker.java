@@ -2,6 +2,7 @@ package ru.job4j.tracker;
 
 import java.util.*;
 
+
 /**
  * @author Andrey Savelov (udroguedozed@gmail.com)
  * @version 1.1
@@ -12,14 +13,17 @@ import java.util.*;
 public class Tracker {
     private Item[] items = new Item[100];
     private int index = 0;
+    private final static Random RN = new Random();
 
     /**
      * Добавить новую заявку
      * @param item - заявка
      * @return - добавленная заявка
      */
-    public void add(Item item) {
+    public Item add(Item item) {
+        item.setId(this.generateId());
         this.items[this.index++] = item;
+        return item;
     }
 
     /**
@@ -27,23 +31,29 @@ public class Tracker {
      * @param id - ID
      * @param item - новая заявка
      */
-    public void replace(String id, Item item) {
+    public boolean replace(String id, Item item) {
+        boolean result = false;
         for (int index = 0; index < this.index; index++) {
             if (this.items[index].getId().equals(id)) {
+                result = true;
                 this.items[index] = item;
+                item.setId(this.generateId());
                 break;
             }
         }
+        return result;
     }
 
     /**
      * Удалить заявку по ID
      * @param id - ID
      */
-    public void delete(String id) {
+    public boolean delete(String id) {
+        boolean result = false;
         Item[] tmp = new Item[100];
         for (int index = 0; index < this.index; index++) {
             if (this.items[index].getId().equals(id)) {
+                result = true;
                 System.arraycopy(this.items, 0, tmp, 0, index);
                 System.arraycopy(this.items, index + 1, tmp, index, this.index - 1 - index);
                 this.items = tmp;
@@ -51,6 +61,7 @@ public class Tracker {
                 break;
             }
         }
+        return result;
     }
 
     /**
@@ -91,5 +102,9 @@ public class Tracker {
             }
         }
         return Arrays.copyOf(tmp, index);
+    }
+
+    private String generateId() {
+        return String.valueOf(System.currentTimeMillis() + RN.nextInt());
     }
 }
