@@ -36,8 +36,8 @@ public class Tracker {
         for (int index = 0; index < this.index; index++) {
             if (this.items[index].getId().equals(id)) {
                 result = true;
+                item.setId(this.items[index].getId());
                 this.items[index] = item;
-                item.setId(this.generateId());
                 break;
             }
         }
@@ -50,13 +50,10 @@ public class Tracker {
      */
     public boolean delete(String id) {
         boolean result = false;
-        Item[] tmp = new Item[100];
         for (int index = 0; index < this.index; index++) {
             if (this.items[index].getId().equals(id)) {
                 result = true;
-                System.arraycopy(this.items, 0, tmp, 0, index);
-                System.arraycopy(this.items, index + 1, tmp, index, this.index - 1 - index);
-                this.items = tmp;
+                System.arraycopy(this.items, index + 1, this.items, index, this.index - index - 1);
                 this.index--;
                 break;
             }

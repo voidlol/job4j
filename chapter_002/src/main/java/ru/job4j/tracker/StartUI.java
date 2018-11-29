@@ -70,8 +70,7 @@ public class StartUI {
         System.out.println("==Добавление новой заявки==");
         String name = this.input.getString("Введите имя заявки: ");
         String desc = this.input.getString("Введите описание заявки: ");
-        Item item = new Item(name, desc);
-        this.tracker.add(item);
+        Item item = this.tracker.add(new Item(name, desc));
         System.out.println("Новая заявка с ID: " + item.getId());
     }
 
@@ -82,7 +81,7 @@ public class StartUI {
         String desc = this.input.getString("Введите описание заявки: ");
         Item item = new Item(name, desc);
         if (this.tracker.replace(id, item)) {
-            System.out.println("Новая заявка с ID: " + item.getId());
+            System.out.println("Заявка с ID: " + item.getId() + " обновлена.");
         } else {
             System.out.println("Заявка с ID: " + id + " не найдена.");
         }

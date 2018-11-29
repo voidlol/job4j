@@ -24,7 +24,7 @@ public class TrackerTest {
     public void replace() {
         tracker.add(item1);
         tracker.replace(item1.getId(), item3);
-        assertThat(tracker.findById(item3.getId()), is(item3));
+        assertThat(tracker.findById(item1.getId()), is(item3));
     }
 
     @Test
