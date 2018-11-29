@@ -14,7 +14,7 @@ public class Item {
     private String id;
     private String description;
     private long created;
-    private final static Random rn = new Random();
+    private final static Random RN = new Random();
 
     /**
      * Конструктор заявки
@@ -61,6 +61,6 @@ public class Item {
     }
 
     private String generateId() {
-        return String.valueOf(System.currentTimeMillis() + rn.nextInt());
+        return String.valueOf(System.currentTimeMillis() + RN.nextInt());
     }
 }

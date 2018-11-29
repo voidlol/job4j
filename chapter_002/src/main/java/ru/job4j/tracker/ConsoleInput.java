@@ -5,11 +5,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class ConsoleInput {
-    private final static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    private final static BufferedReader BR = new BufferedReader(new InputStreamReader(System.in));
 
     public String getString(String output) throws IOException {
         System.out.print(output);
-        String result = br.readLine();
-        return result;
+        return BR.readLine();
     }
 }
