@@ -4,7 +4,7 @@ import java.util.*;
 
 /**
  * @author Andrey Savelov (udroguedozed@gmail.com)
- * @version 1.0
+ * @version 1.1
  * @since 2018
  *
  * Хранилище заявок
@@ -41,7 +41,7 @@ public class Tracker {
      * @param id - ID
      */
     public void delete(String id) {
-        Item[] tmp = new Item[this.index - 1];
+        Item[] tmp = new Item[100];
         for (int index = 0; index < this.index; index++) {
             if (this.items[index].getId().equals(id)) {
                 System.arraycopy(this.items, 0, tmp, 0, index);
