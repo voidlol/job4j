@@ -19,7 +19,7 @@ public class StartUITest {
         Tracker tracker = new Tracker();
         Item item = new Item("Privet", "Kak dela");
         tracker.add(item);
-        ConsoleInput input = new StubInput(new String[]{"2", item.getId(),"test name", "desc", "6"});
+        ConsoleInput input = new StubInput(new String[]{"2", item.getId(), "test name", "desc", "6"});
         new StartUI(tracker, input).init();
         assertThat(tracker.findAll()[0].getName(), is("test name"));
     }
