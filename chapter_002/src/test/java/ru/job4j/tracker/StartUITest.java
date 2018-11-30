@@ -12,9 +12,9 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 public class StartUITest {
-    private final PrintStream STDOUT = System.out;
-    private final ByteArrayOutputStream OUT = new ByteArrayOutputStream();
-    private final String MENU = new StringBuilder()
+    private final PrintStream stdout = System.out;
+    private final ByteArrayOutputStream out = new ByteArrayOutputStream();
+    private final String menu = new StringBuilder()
             .append("============МЕНЮ===========").append(System.lineSeparator())
             .append("0. Добавить новую заявку").append(System.lineSeparator())
             .append("1. Показать все заявки").append(System.lineSeparator())
@@ -27,12 +27,12 @@ public class StartUITest {
 
     @Before
     public void loadOutput() {
-        System.setOut(new PrintStream(this.OUT));
+        System.setOut(new PrintStream(this.out));
     }
 
     @After
     public void backOutput() {
-        System.setOut(this.STDOUT);
+        System.setOut(this.stdout);
     }
     @Test
     public void whenUserAddItemThenTrackerHasNewItemWithSameName() throws IOException {
@@ -40,11 +40,11 @@ public class StartUITest {
         ConsoleInput input = new StubInput(new String[]{"0", "test name", "desc", "6"});
         new StartUI(tracker, input).init();
         assertThat(tracker.findAll()[0].getName(), is("test name"));
-        assertThat(this.OUT.toString(), is(new StringBuilder()
-                .append(this.MENU)
+        assertThat(this.out.toString(), is(new StringBuilder()
+                .append(this.menu)
                 .append("==Добавление новой заявки==").append(System.lineSeparator())
                 .append("Новая заявка с ID: ").append(tracker.findAll()[0].getId()).append(System.lineSeparator())
-                .append(this.MENU).toString()));
+                .append(this.menu).toString()));
     }
 
     @Test
@@ -55,11 +55,11 @@ public class StartUITest {
         ConsoleInput input = new StubInput(new String[]{"2", item.getId(), "test name", "desc", "6"});
         new StartUI(tracker, input).init();
         assertThat(tracker.findAll()[0].getName(), is("test name"));
-        assertThat(this.OUT.toString(), is(new StringBuilder()
-                .append(this.MENU)
+        assertThat(this.out.toString(), is(new StringBuilder()
+                .append(this.menu)
                 .append("======Изменить заявку======").append(System.lineSeparator())
                 .append("Заявка с ID: ").append(item.getId()).append(" обновлена.").append(System.lineSeparator())
-                .append(this.MENU).toString()));
+                .append(this.menu).toString()));
     }
 
     @Test
@@ -72,11 +72,11 @@ public class StartUITest {
         ConsoleInput input = new StubInput(new String[]{"3", item1.getId(), "6"});
         new StartUI(tracker, input).init();
         assertThat(tracker.findAll()[0].getName(), is("Privet 2"));
-        assertThat(this.OUT.toString(), is(new StringBuilder()
-                .append(this.MENU)
+        assertThat(this.out.toString(), is(new StringBuilder()
+                .append(this.menu)
                 .append("=======Удалить заявку======").append(System.lineSeparator())
                 .append("Заявка с ID: ").append(item1.getId()).append(" удалена.").append(System.lineSeparator())
-                .append(this.MENU).toString()));
+                .append(this.menu).toString()));
     }
 
     @Test
@@ -86,11 +86,11 @@ public class StartUITest {
         Item item2 = tracker.add(new Item("Privet 2", "Kak dela 2"));
         ConsoleInput input = new StubInput(new String[]{"3", "randomID", "6"});
         new StartUI(tracker, input).init();
-        assertThat(this.OUT.toString(), is(new StringBuilder()
-                .append(this.MENU)
+        assertThat(this.out.toString(), is(new StringBuilder()
+                .append(this.menu)
                 .append("=======Удалить заявку======").append(System.lineSeparator())
                 .append("Заявка с ID: ").append("randomID").append(" не найдена.").append(System.lineSeparator())
-                .append(this.MENU).toString()));
+                .append(this.menu).toString()));
     }
 
     @Test
@@ -102,14 +102,14 @@ public class StartUITest {
         tracker.add(item2);
         ConsoleInput input = new StubInput(new String[]{"1", "6"});
         new StartUI(tracker, input).init();
-        assertThat(this.OUT.toString(), is(new StringBuilder()
-                                                .append(this.MENU)
+        assertThat(this.out.toString(), is(new StringBuilder()
+                                                .append(this.menu)
                         .append("====Показать все заявки====").append(System.lineSeparator())
                         .append("Заявка: Privet").append(System.lineSeparator())
                         .append("Kak dela").append(System.lineSeparator())
                         .append("Заявка: Privet 2").append(System.lineSeparator())
                         .append("Kak dela 2").append(System.lineSeparator())
-                        .append(this.MENU).toString()));
+                        .append(this.menu).toString()));
     }
 
     @Test
@@ -119,12 +119,12 @@ public class StartUITest {
         Item item2 = tracker.add(new Item("Privet 2", "Kak dela 2"));
         ConsoleInput input = new StubInput(new String[]{"4", item2.getId(), "6"});
         new StartUI(tracker, input).init();
-        assertThat(this.OUT.toString(), is(new StringBuilder()
-                .append(this.MENU)
+        assertThat(this.out.toString(), is(new StringBuilder()
+                .append(this.menu)
                 .append("=====Поиск заявки по ID====").append(System.lineSeparator())
                 .append("Заявка: Privet 2").append(System.lineSeparator())
                 .append("Kak dela 2").append(System.lineSeparator())
-                .append(this.MENU).toString()));
+                .append(this.menu).toString()));
     }
 
     @Test
@@ -134,11 +134,11 @@ public class StartUITest {
         Item item2 = tracker.add(new Item("Privet 2", "Kak dela 2"));
         ConsoleInput input = new StubInput(new String[]{"4", "randomID", "6"});
         new StartUI(tracker, input).init();
-        assertThat(this.OUT.toString(), is(new StringBuilder()
-                .append(this.MENU)
+        assertThat(this.out.toString(), is(new StringBuilder()
+                .append(this.menu)
                 .append("=====Поиск заявки по ID====").append(System.lineSeparator())
                 .append("Заявка с ID: randomID не найдена.").append(System.lineSeparator())
-                .append(this.MENU).toString()));
+                .append(this.menu).toString()));
     }
 
     @Test
@@ -148,13 +148,13 @@ public class StartUITest {
         Item item2 = tracker.add(new Item("Privet 2", "Kak dela 2"));
         ConsoleInput input = new StubInput(new String[]{"5", "Privet 2", "6"});
         new StartUI(tracker, input).init();
-        assertThat(this.OUT.toString(), is(new StringBuilder()
-                .append(this.MENU)
+        assertThat(this.out.toString(), is(new StringBuilder()
+                .append(this.menu)
                 .append("===Поиск заявок по имени===").append(System.lineSeparator())
                 .append("Заявка: Privet 2").append(System.lineSeparator())
                 .append("Kak dela").append(System.lineSeparator())
                 .append("Заявка: Privet 2").append(System.lineSeparator())
                 .append("Kak dela 2").append(System.lineSeparator())
-                .append(this.MENU).toString()));
+                .append(this.menu).toString()));
     }
 }

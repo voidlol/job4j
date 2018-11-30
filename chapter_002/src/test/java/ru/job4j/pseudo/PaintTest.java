@@ -11,28 +11,28 @@ import static org.junit.Assert.*;
 
 public class PaintTest {
 
-    private final PrintStream STDOUT = System.out;
-    private final ByteArrayOutputStream OUT = new ByteArrayOutputStream();
+    private final PrintStream stdout = System.out;
+    private final ByteArrayOutputStream out = new ByteArrayOutputStream();
 
     @Before
     public void loadOutput() {
-        System.setOut(new PrintStream(this.OUT));
+        System.setOut(new PrintStream(this.out));
     }
 
     @After
     public void backOutput() {
-        System.setOut(this.STDOUT);
+        System.setOut(this.stdout);
     }
 
     @Test
     public void drawSquare() {
         new Paint().draw(new Square());
-        assertThat(this.OUT.toString(), is(new StringBuilder().append("####").append("####").append("####").append("####").append(System.lineSeparator()).toString()));
+        assertThat(this.out.toString(), is(new StringBuilder().append("####").append("####").append("####").append("####").append(System.lineSeparator()).toString()));
     }
 
     @Test
     public void drawTriangle() {
         new Paint().draw(new Triangle());
-        assertThat(this.OUT.toString(), is(new StringBuilder().append("   #   ").append("  ###  ").append(" ##### ").append("#######").append(System.lineSeparator()).toString()));
+        assertThat(this.out.toString(), is(new StringBuilder().append("   #   ").append("  ###  ").append(" ##### ").append("#######").append(System.lineSeparator()).toString()));
     }
 }
