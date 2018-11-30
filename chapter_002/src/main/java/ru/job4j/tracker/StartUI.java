@@ -91,7 +91,7 @@ public class StartUI {
         System.out.println("=======Удалить заявку======");
         String id = this.input.getString("Введите ID заявки: ");
         if (this.tracker.delete(id)) {
-            System.out.println("Заявка с ID: " + id + " удалена");
+            System.out.println("Заявка с ID: " + id + " удалена.");
         } else {
             System.out.println("Заявка с ID: " + id + " не найдена.");
         }
@@ -102,7 +102,7 @@ public class StartUI {
         String id = this.input.getString("Введите ID заявки: ");
         Item item = this.tracker.findById(id);
         if (item != null) {
-            System.out.println("Заявка с ID: " + item.getName() + System.lineSeparator() + item.getDescription());
+            System.out.println("Заявка: " + item.getName() + System.lineSeparator() + item.getDescription());
         } else {
             System.out.println("Заявка с ID: " + id + " не найдена.");
         }
