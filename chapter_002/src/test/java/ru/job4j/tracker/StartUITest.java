@@ -34,6 +34,7 @@ public class StartUITest {
     public void backOutput() {
         System.setOut(this.stdout);
     }
+
     @Test
     public void whenUserAddItemThenTrackerHasNewItemWithSameName() throws IOException {
         Tracker tracker = new Tracker();
@@ -103,13 +104,13 @@ public class StartUITest {
         ConsoleInput input = new StubInput(new String[]{"1", "6"});
         new StartUI(tracker, input).init();
         assertThat(this.out.toString(), is(new StringBuilder()
-                                                .append(this.menu)
-                        .append("====Показать все заявки====").append(System.lineSeparator())
-                        .append("Заявка: Privet").append(System.lineSeparator())
-                        .append("Kak dela").append(System.lineSeparator())
-                        .append("Заявка: Privet 2").append(System.lineSeparator())
-                        .append("Kak dela 2").append(System.lineSeparator())
-                        .append(this.menu).toString()));
+                .append(this.menu)
+                .append("====Показать все заявки====").append(System.lineSeparator())
+                .append("Заявка: Privet").append(System.lineSeparator())
+                .append("Kak dela").append(System.lineSeparator())
+                .append("Заявка: Privet 2").append(System.lineSeparator())
+                .append("Kak dela 2").append(System.lineSeparator())
+                .append(this.menu).toString()));
     }
 
     @Test
