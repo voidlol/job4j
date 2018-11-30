@@ -55,4 +55,9 @@ public class Item {
     public long getCreated() {
         return this.created;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s%s%s%s", "Заявка: ", this.getName(), System.lineSeparator(), this.getDescription());
+    }
 }

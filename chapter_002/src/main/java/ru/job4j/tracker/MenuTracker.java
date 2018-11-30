@@ -127,7 +127,7 @@ public class MenuTracker {
             String id = input.getString("Введите ID заявки: ");
             Item item = tracker.findById(id);
             if (item != null) {
-                System.out.println("Заявка: " + item.getName() + System.lineSeparator() + item.getDescription());
+                System.out.println(item.toString());
             } else {
                 System.out.println("Заявка с ID: " + id + " не найдена.");
             }
@@ -152,7 +152,7 @@ public class MenuTracker {
             String name = input.getString("Введите имя заявки: ");
             Item[] items = tracker.findByName(name);
             for (Item item : items) {
-                System.out.println("Заявка: " + item.getName() + System.lineSeparator() + item.getDescription());
+                System.out.println(item.toString());
             }
         }
     }
@@ -174,7 +174,7 @@ public class MenuTracker {
             System.out.println("====Показать все заявки====");
             Item[] items = tracker.findAll();
             for (Item item : items) {
-                System.out.println("Заявка: " + item.getName() + System.lineSeparator() + item.getDescription());
+                System.out.println(item.toString());
             }
         }
     }
