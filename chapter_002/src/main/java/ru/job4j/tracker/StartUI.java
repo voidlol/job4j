@@ -1,7 +1,5 @@
 package ru.job4j.tracker;
 
-import java.io.IOException;
-
 public class StartUI {
     private static final int EXIT = 6;
 
@@ -13,7 +11,7 @@ public class StartUI {
         this.tracker = tracker;
     }
 
-    public void init() throws IOException {
+    public void init() {
         MenuTracker menu = new MenuTracker(this.input, this.tracker);
         int answer = -1;
         menu.fillMenu();
@@ -24,7 +22,7 @@ public class StartUI {
         } while (EXIT != answer);
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         new StartUI(new Tracker(), new ValidateInput()).init();
     }
 }
