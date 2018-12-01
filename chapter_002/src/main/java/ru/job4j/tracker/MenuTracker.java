@@ -1,6 +1,6 @@
 package ru.job4j.tracker;
 
-import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +24,7 @@ public class MenuTracker {
         actions.add(new Exit());
     }
 
-    public void select(int key) throws IOException {
+    public void select(int key) {
         this.actions.get(key).execute(this.input, this.tracker);
     }
 
@@ -34,6 +34,14 @@ public class MenuTracker {
             System.out.println(action.info());
         }
         System.out.println("===========================");
+    }
+
+    public int[] getRange() {
+        int[] range = new int[this.actions.size()];
+        for (UserAction action : this.actions) {
+            range[action.key()] = action.key();
+        }
+        return range;
     }
 
     private static class AddNewItem implements UserAction {
@@ -49,7 +57,7 @@ public class MenuTracker {
         }
 
         @Override
-        public void execute(Input input, Tracker tracker) throws IOException {
+        public void execute(Input input, Tracker tracker) {
             System.out.println("==Добавление новой заявки==");
             String name = input.getString("Введите имя заявки: ");
             String desc = input.getString("Введите описание заявки: ");
@@ -71,7 +79,7 @@ public class MenuTracker {
         }
 
         @Override
-        public void execute(Input input, Tracker tracker) throws IOException {
+        public void execute(Input input, Tracker tracker) {
             System.out.println("======Изменить заявку======");
             String id = input.getString("Введите ID заявки: ");
             String name = input.getString("Введите имя заявки: ");
@@ -98,7 +106,7 @@ public class MenuTracker {
         }
 
         @Override
-        public void execute(Input input, Tracker tracker) throws IOException {
+        public void execute(Input input, Tracker tracker) {
             System.out.println("=======Удалить заявку======");
             String id = input.getString("Введите ID заявки: ");
             if (tracker.delete(id)) {
@@ -122,12 +130,12 @@ public class MenuTracker {
         }
 
         @Override
-        public void execute(Input input, Tracker tracker) throws IOException {
+        public void execute(Input input, Tracker tracker) {
             System.out.println("=====Поиск заявки по ID====");
             String id = input.getString("Введите ID заявки: ");
             Item item = tracker.findById(id);
             if (item != null) {
-                System.out.println(item.toString());
+                System.out.println(item);
             } else {
                 System.out.println("Заявка с ID: " + id + " не найдена.");
             }
@@ -147,12 +155,12 @@ public class MenuTracker {
         }
 
         @Override
-        public void execute(Input input, Tracker tracker) throws IOException {
+        public void execute(Input input, Tracker tracker) {
             System.out.println("===Поиск заявок по имени===");
             String name = input.getString("Введите имя заявки: ");
             Item[] items = tracker.findByName(name);
             for (Item item : items) {
-                System.out.println(item.toString());
+                System.out.println(item);
             }
         }
     }
@@ -174,7 +182,7 @@ public class MenuTracker {
             System.out.println("====Показать все заявки====");
             Item[] items = tracker.findAll();
             for (Item item : items) {
-                System.out.println(item.toString());
+                System.out.println(item);
             }
         }
     }
