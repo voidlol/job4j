@@ -5,7 +5,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.PrintStream;
 
 import static org.hamcrest.core.Is.is;
@@ -36,7 +35,31 @@ public class StartUITest {
     }
 
     @Test
-    public void whenUserAddItemThenTrackerHasNewItemWithSameName() throws IOException {
+    public void whenInvalidInput() {
+        Tracker tracker = new Tracker();
+        ValidateInput input = new ValidateInput(new StubInput(new String[]{"sdfsdf", "1"}));
+        input.getString("", new int[] {1});
+        assertThat(this.out.toString(), is("Введите число." + System.lineSeparator()));
+    }
+
+    @Test
+    public void whenInvalidNumberInput() {
+        Tracker tracker = new Tracker();
+        ValidateInput input = new ValidateInput(new StubInput(new String[]{"3", "1"}));
+        input.getString("", new int[] {1});
+        assertThat(this.out.toString(), is("Такого пункта нет, введите еще раз." + System.lineSeparator()));
+    }
+
+    @Test
+    public void whenValidNumberInput() {
+        Tracker tracker = new Tracker();
+        ValidateInput input = new ValidateInput(new StubInput(new String[]{"1"}));
+        input.getString("Enter", new int[] {1});
+        assertThat(this.out.toString(), is(""));
+    }
+
+    @Test
+    public void whenUserAddItemThenTrackerHasNewItemWithSameName() {
         Tracker tracker = new Tracker();
         ConsoleInput input = new StubInput(new String[]{"0", "test name", "desc", "6"});
         new StartUI(tracker, input).init();
@@ -49,7 +72,7 @@ public class StartUITest {
     }
 
     @Test
-    public void whenUserEditItemThenTrackerHasNewItem() throws IOException {
+    public void whenUserEditItemThenTrackerHasNewItem() {
         Tracker tracker = new Tracker();
         Item item = new Item("Privet", "Kak dela");
         tracker.add(item);
@@ -64,7 +87,7 @@ public class StartUITest {
     }
 
     @Test
-    public void whenUserDeleteItemThenTrackerRemovedItem() throws IOException {
+    public void whenUserDeleteItemThenTrackerRemovedItem() {
         Tracker tracker = new Tracker();
         Item item1 = new Item("Privet", "Kak dela");
         Item item2 = new Item("Privet 2", "Kak dela 2");
@@ -81,7 +104,7 @@ public class StartUITest {
     }
 
     @Test
-    public void whenUserDeleteItemNotFoundThenTrackerShowError() throws IOException {
+    public void whenUserDeleteItemNotFoundThenTrackerShowError() {
         Tracker tracker = new Tracker();
         Item item1 = tracker.add(new Item("Privet", "Kak dela"));
         Item item2 = tracker.add(new Item("Privet 2", "Kak dela 2"));
@@ -95,7 +118,7 @@ public class StartUITest {
     }
 
     @Test
-    public void whenUserShowAllItemsThenTrackerShowsAll() throws IOException {
+    public void whenUserShowAllItemsThenTrackerShowsAll() {
         Tracker tracker = new Tracker();
         Item item1 = new Item("Privet", "Kak dela");
         Item item2 = new Item("Privet 2", "Kak dela 2");
@@ -114,7 +137,7 @@ public class StartUITest {
     }
 
     @Test
-    public void whenUserFindByIdThenTrackerShowsById() throws IOException {
+    public void whenUserFindByIdThenTrackerShowsById() {
         Tracker tracker = new Tracker();
         Item item1 = tracker.add(new Item("Privet", "Kak dela"));
         Item item2 = tracker.add(new Item("Privet 2", "Kak dela 2"));
@@ -129,7 +152,7 @@ public class StartUITest {
     }
 
     @Test
-    public void whenUserFindByIdNotFoundThenTrackerShowsError() throws IOException {
+    public void whenUserFindByIdNotFoundThenTrackerShowsError() {
         Tracker tracker = new Tracker();
         Item item1 = tracker.add(new Item("Privet", "Kak dela"));
         Item item2 = tracker.add(new Item("Privet 2", "Kak dela 2"));
@@ -143,7 +166,7 @@ public class StartUITest {
     }
 
     @Test
-    public void whenUserFindByNameThenTrackerShowsByName() throws IOException {
+    public void whenUserFindByNameThenTrackerShowsByName() {
         Tracker tracker = new Tracker();
         Item item1 = tracker.add(new Item("Privet 2", "Kak dela"));
         Item item2 = tracker.add(new Item("Privet 2", "Kak dela 2"));
