@@ -15,13 +15,13 @@ public class MenuTracker {
     }
 
     public void fillMenu() {
-        actions.add(new AddNewItem());
-        actions.add(new ShowAll());
-        actions.add(new EditItem());
-        actions.add(new DeleteItem());
-        actions.add(new FindById());
-        actions.add(new FindByName());
-        actions.add(new Exit());
+        actions.add(new AddNewItem(0, "Добавить новую заявку"));
+        actions.add(new ShowAll(1, "Показать все заявки"));
+        actions.add(new EditItem(2, "Изменить заявку"));
+        actions.add(new DeleteItem(3, "Удалить заявку"));
+        actions.add(new FindById(4, "Поиск заявки по ID"));
+        actions.add(new FindByName(5, "Поиск заявок по имени"));
+        actions.add(new Exit(6, "Выход"));
     }
 
     public void select(int key) {
@@ -44,16 +44,10 @@ public class MenuTracker {
         return range;
     }
 
-    private static class AddNewItem implements UserAction {
+    private static class AddNewItem extends BaseAction {
 
-        @Override
-        public int key() {
-            return 0;
-        }
-
-        @Override
-        public String info() {
-            return String.format("%s. %s", this.key(), "Добавить новую заявку");
+        protected AddNewItem(int key, String name) {
+            super(key, name);
         }
 
         @Override
@@ -66,16 +60,11 @@ public class MenuTracker {
         }
     }
 
-    private static class EditItem implements UserAction {
+    private static class EditItem extends BaseAction {
 
-        @Override
-        public int key() {
-            return 2;
-        }
 
-        @Override
-        public String info() {
-            return String.format("%s. %s", this.key(), "Изменить заявку");
+        protected EditItem(int key, String name) {
+            super(key, name);
         }
 
         @Override
@@ -93,16 +82,11 @@ public class MenuTracker {
         }
     }
 
-    private static class DeleteItem implements UserAction {
+    private static class DeleteItem extends BaseAction {
 
-        @Override
-        public int key() {
-            return 3;
-        }
 
-        @Override
-        public String info() {
-            return String.format("%s. %s", this.key(), "Удалить заявку");
+        protected DeleteItem(int key, String name) {
+            super(key, name);
         }
 
         @Override
@@ -117,16 +101,11 @@ public class MenuTracker {
         }
     }
 
-    private static class FindById implements UserAction {
+    private static class FindById extends BaseAction {
 
-        @Override
-        public int key() {
-            return 4;
-        }
 
-        @Override
-        public String info() {
-            return String.format("%s. %s", this.key(), "Поиск заявки по ID");
+        protected FindById(int key, String name) {
+            super(key, name);
         }
 
         @Override
@@ -142,16 +121,10 @@ public class MenuTracker {
         }
     }
 
-    private static class FindByName implements UserAction {
+    private static class FindByName extends BaseAction {
 
-        @Override
-        public int key() {
-            return 5;
-        }
-
-        @Override
-        public String info() {
-            return String.format("%s. %s", this.key(), "Поиск заявок по имени");
+        protected FindByName(int key, String name) {
+            super(key, name);
         }
 
         @Override
@@ -165,16 +138,11 @@ public class MenuTracker {
         }
     }
 
-    private static class ShowAll implements UserAction {
+    private static class ShowAll extends BaseAction {
 
-        @Override
-        public int key() {
-            return 1;
-        }
 
-        @Override
-        public String info() {
-            return String.format("%s. %s", this.key(), "Показать все заявки");
+        protected ShowAll(int key, String name) {
+            super(key, name);
         }
 
         @Override
@@ -187,16 +155,10 @@ public class MenuTracker {
         }
     }
 
-    private static class Exit implements UserAction {
+    private static class Exit extends BaseAction {
 
-        @Override
-        public int key() {
-            return 6;
-        }
-
-        @Override
-        public String info() {
-            return String.format("%s. %s", this.key(), "Выход");
+        protected Exit(int key, String name) {
+            super(key, name);
         }
 
         @Override
