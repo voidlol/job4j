@@ -23,20 +23,26 @@ public class Logic {
     public boolean move(Cell source, Cell dest) {
         boolean rst = false;
         int index = this.findBy(source);
-        try {
-            if (index == -1) {
-                throw new FigureNotFoundException("Not found");
-            }
-            Cell[] steps = this.figures[index].way(source, dest);
-            if (steps.length > 0 && steps[steps.length - 1].equals(dest)) {
-                for (Cell step : steps) {
-                    if (this.findBy(step) != -1) {
-                        throw new OccupiedWayException("Путь занят.");
-                    }
+        if (index == -1) {
+            throw new FigureNotFoundException("Not found");
+        }
+        Cell[] steps = this.figures[index].way(source, dest);
+        if (steps.length > 0 && steps[steps.length - 1].equals(dest)) {
+            for (Cell step : steps) {
+                if (this.findBy(step) != -1) {
+                    throw new OccupiedWayException("Путь занят.");
                 }
-                rst = true;
-                this.figures[index] = this.figures[index].copy(dest);
             }
+            rst = true;
+            this.figures[index] = this.figures[index].copy(dest);
+        }
+        return rst;
+    }
+
+    public boolean validateMove(Cell source, Cell dest) {
+        boolean rst = false;
+        try {
+            rst = move(source, dest);
         } catch (FigureNotFoundException fnfe) {
             System.out.println("Здесь нет фигуры!");
         } catch (ImposibleMoveException ime) {

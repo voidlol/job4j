@@ -60,7 +60,7 @@ public class Chess extends Application {
         );
         rect.setOnMouseReleased(
                 event -> {
-                    if (logic.move(this.findBy(momento.getX(), momento.getY()), this.findBy(event.getX(), event.getY()))) {
+                    if (logic.validateMove(this.findBy(momento.getX(), momento.getY()), this.findBy(event.getX(), event.getY()))) {
                         rect.setX(((int) event.getX() / 40) * 40 + 5);
                         rect.setY(((int) event.getY() / 40) * 40 + 5);
                     } else {
@@ -168,12 +168,6 @@ public class Chess extends Application {
         Cell rst = Cell.A1;
         int x = (int) graphX / 40;
         int y = (int) graphY / 40;
-        for (Cell cell : Cell.values()) {
-            if (cell.x == x && cell.y == y) {
-                rst = cell;
-                break;
-            }
-        }
-        return rst;
+        return Cell.getCell(x, y);
     }
 }

@@ -27,7 +27,7 @@ public class PawnBlack implements Figure {
         if (!(source.y == dest.y + 1 && source.x == dest.x)) {
             throw new ImposibleMoveException("Unable to move that way");
         }
-        return new Cell[] { dest };
+        return new Cell[] {dest};
     }
 
     @Override

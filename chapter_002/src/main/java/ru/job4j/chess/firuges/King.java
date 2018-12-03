@@ -2,7 +2,7 @@ package ru.job4j.chess.firuges;
 
 import ru.job4j.chess.ImposibleMoveException;
 
-public abstract class King implements Figure{
+public abstract class King implements Figure {
 
     private final Cell position;
 
@@ -20,7 +20,7 @@ public abstract class King implements Figure{
         if (!isCorrectMove(source, dest)) {
             throw new ImposibleMoveException("Unable to move that way.");
         }
-        return new Cell[] { dest };
+        return new Cell[] {dest};
     }
 
     private boolean isCorrectMove(Cell source, Cell dest) {

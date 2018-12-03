@@ -19,7 +19,7 @@ public abstract class Knight implements Figure {
         if (!isCorrectMove(source, dest)) {
             throw new ImposibleMoveException("Unable to move that way");
         }
-        return new Cell[] { dest };
+        return new Cell[] {dest};
     }
 
     private boolean isCorrectMove(Cell source, Cell dest) {

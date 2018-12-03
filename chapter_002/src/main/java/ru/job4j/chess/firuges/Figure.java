@@ -20,13 +20,8 @@ public interface Figure {
         Cell[] steps = new Cell[size];
         Cell tmp = source;
         for (int i = 0; i < size; i++) {
-            for (Cell cell : Cell.values()) {
-                if (cell.x == tmp.x + dx && cell.y == tmp.y + dy)  {
-                    tmp = cell;
-                    steps[i] = cell;
-                    break;
-                }
-            }
+            steps[i] = Cell.getCell(tmp.x + dx, tmp.y + dy);
+            tmp = steps[i];
         }
         return steps;
     }
