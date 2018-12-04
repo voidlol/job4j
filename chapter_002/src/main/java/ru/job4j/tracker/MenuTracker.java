@@ -4,6 +4,14 @@ package ru.job4j.tracker;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Andrey Savelov (udroguedozed@gmail.com)
+ * @version 1.4
+ * @since 2018
+ *
+ * Меню
+ */
+
 public class MenuTracker {
     private Input input;
     private Tracker tracker;
@@ -130,7 +138,7 @@ public class MenuTracker {
         public void execute(Input input, Tracker tracker) {
             System.out.println("===Поиск заявок по имени===");
             String name = input.getString("Введите имя заявки: ");
-            Item[] items = tracker.findByName(name);
+            List<Item> items = tracker.findByName(name);
             for (Item item : items) {
                 System.out.println(item);
             }
@@ -147,7 +155,7 @@ public class MenuTracker {
         @Override
         public void execute(Input input, Tracker tracker) {
             System.out.println("====Показать все заявки====");
-            Item[] items = tracker.findAll();
+            List<Item> items = tracker.findAll();
             for (Item item : items) {
                 System.out.println(item);
             }

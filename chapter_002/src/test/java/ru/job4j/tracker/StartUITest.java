@@ -63,11 +63,11 @@ public class StartUITest {
         Tracker tracker = new Tracker();
         ConsoleInput input = new StubInput(new String[]{"0", "test name", "desc", "6"});
         new StartUI(tracker, input).init();
-        assertThat(tracker.findAll()[0].getName(), is("test name"));
+        assertThat(tracker.findAll().get(0).getName(), is("test name"));
         assertThat(this.out.toString(), is(new StringBuilder()
                 .append(this.menu)
                 .append("==Добавление новой заявки==").append(System.lineSeparator())
-                .append("Новая заявка с ID: ").append(tracker.findAll()[0].getId()).append(System.lineSeparator())
+                .append("Новая заявка с ID: ").append(tracker.findAll().get(0).getId()).append(System.lineSeparator())
                 .append(this.menu).toString()));
     }
 
@@ -78,7 +78,7 @@ public class StartUITest {
         tracker.add(item);
         ConsoleInput input = new StubInput(new String[]{"2", item.getId(), "test name", "desc", "6"});
         new StartUI(tracker, input).init();
-        assertThat(tracker.findAll()[0].getName(), is("test name"));
+        assertThat(tracker.findAll().get(0).getName(), is("test name"));
         assertThat(this.out.toString(), is(new StringBuilder()
                 .append(this.menu)
                 .append("======Изменить заявку======").append(System.lineSeparator())
@@ -95,7 +95,7 @@ public class StartUITest {
         tracker.add(item2);
         ConsoleInput input = new StubInput(new String[]{"3", item1.getId(), "6"});
         new StartUI(tracker, input).init();
-        assertThat(tracker.findAll()[0].getName(), is("Privet 2"));
+        assertThat(tracker.findAll().get(0).getName(), is("Privet 2"));
         assertThat(this.out.toString(), is(new StringBuilder()
                 .append(this.menu)
                 .append("=======Удалить заявку======").append(System.lineSeparator())

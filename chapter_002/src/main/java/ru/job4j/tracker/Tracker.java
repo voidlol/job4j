@@ -5,14 +5,13 @@ import java.util.*;
 
 /**
  * @author Andrey Savelov (udroguedozed@gmail.com)
- * @version 1.1
+ * @version 1.2
  * @since 2018
  *
  * Хранилище заявок
  */
 public class Tracker {
-    private Item[] items = new Item[100];
-    private int index = 0;
+    private List<Item> items = new ArrayList<>();
     private static final Random RN = new Random();
 
     /**
@@ -22,7 +21,7 @@ public class Tracker {
      */
     public Item add(Item item) {
         item.setId(this.generateId());
-        this.items[this.index++] = item;
+        this.items.add(item);
         return item;
     }
 
@@ -33,11 +32,11 @@ public class Tracker {
      */
     public boolean replace(String id, Item item) {
         boolean result = false;
-        for (int i = 0; i < this.index; i++) {
-            if (this.items[i].getId().equals(id)) {
+        for (int i = 0; i < this.items.size(); i++) {
+            if (this.items.get(i).getId().equals(id)) {
                 result = true;
-                item.setId(this.items[i].getId());
-                this.items[i] = item;
+                item.setId(this.items.get(i).getId());
+                this.items.add(i, item);
                 break;
             }
         }
@@ -50,11 +49,10 @@ public class Tracker {
      */
     public boolean delete(String id) {
         boolean result = false;
-        for (int i = 0; i < this.index; i++) {
-            if (this.items[i].getId().equals(id)) {
+        for (int i = 0; i < this.items.size(); i++) {
+            if (this.items.get(i).getId().equals(id)) {
                 result = true;
-                System.arraycopy(this.items, i + 1, this.items, i, this.index - i - 1);
-                this.index--;
+                this.items.remove(i);
                 break;
             }
         }
@@ -65,8 +63,8 @@ public class Tracker {
      * Найти все заявки
      * @return - все заявки
      */
-    public Item[] findAll() {
-        return this.index == 0 ? null : Arrays.copyOf(this.items, this.index);
+    public List<Item> findAll() {
+        return this.items.isEmpty() ? null : this.items;
     }
 
     /**
@@ -90,15 +88,15 @@ public class Tracker {
      * @param name - имя
      * @return - список заявок
      */
-    public Item[] findByName(String name) {
-        Item[] tmp = new Item[this.index];
+    public List<Item> findByName(String name) {
+        List<Item> result = new ArrayList<>();
         int i = 0;
         for (Item item : this.items) {
             if (item != null && item.getName().equals(name)) {
-                tmp[i++] = item;
+                result.add(item);
             }
         }
-        return Arrays.copyOf(tmp, i);
+        return result;
     }
 
     private String generateId() {
