@@ -3,8 +3,6 @@ package ru.job4j.chess;
 import ru.job4j.chess.firuges.Cell;
 import ru.job4j.chess.firuges.Figure;
 
-import java.util.Optional;
-
 /**
  * //TODO add comments.
  *
@@ -20,7 +18,7 @@ public class Logic {
         this.figures[this.index++] = figure;
     }
 
-    public boolean move(Cell source, Cell dest) {
+    public boolean move(Cell source, Cell dest) throws ImpossibleMoveException, OccupiedWayException, FigureNotFoundException{
         boolean rst = false;
         int index = this.findBy(source);
         if (index == -1) {
@@ -45,7 +43,7 @@ public class Logic {
             rst = move(source, dest);
         } catch (FigureNotFoundException fnfe) {
             System.out.println("Здесь нет фигуры!");
-        } catch (ImposibleMoveException ime) {
+        } catch (ImpossibleMoveException ime) {
             System.out.println("Так ходить нельзя!");
         } catch (OccupiedWayException owe) {
             System.out.println("Путь занят.");
