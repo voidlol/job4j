@@ -45,7 +45,6 @@ public class MenuTracker {
     }
 
     private static class AddNewItem extends BaseAction {
-
         protected AddNewItem(int key, String name) {
             super(key, name);
         }

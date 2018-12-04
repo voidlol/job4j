@@ -1,6 +1,6 @@
 package ru.job4j.chess.firuges;
 
-import ru.job4j.chess.ImposibleMoveException;
+import ru.job4j.chess.ImpossibleMoveException;
 
 public abstract class Rook implements Figure {
 
@@ -18,7 +18,7 @@ public abstract class Rook implements Figure {
     @Override
     public Cell[] way(Cell source, Cell dest) {
         if (!(isHorizontal(source, dest) || isVertical(source, dest))) {
-            throw new ImposibleMoveException("Unable to move that way.");
+            throw new ImpossibleMoveException("Unable to move that way.");
         }
         int size = isHorizontal(source, dest) ? Math.abs(source.x - dest.x) : Math.abs(source.y - dest.y);
         return getCells(source, dest, size);

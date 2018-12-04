@@ -1,6 +1,6 @@
 package ru.job4j.chess.firuges;
 
-import ru.job4j.chess.ImposibleMoveException;
+import ru.job4j.chess.ImpossibleMoveException;
 
 public abstract class Bishop implements Figure {
 
@@ -18,7 +18,7 @@ public abstract class Bishop implements Figure {
     @Override
     public Cell[] way(Cell source, Cell dest) {
         if (!isDiagonal(source, dest)) {
-            throw new ImposibleMoveException("Так ходить нельзя!");
+            throw new ImpossibleMoveException("Так ходить нельзя!");
         }
         int size = Math.abs(source.x - dest.x);
         return getCells(source, dest, size);
