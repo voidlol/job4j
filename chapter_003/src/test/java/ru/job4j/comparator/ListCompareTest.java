@@ -8,7 +8,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ListCompareTest {
     @Test
-    public void whenStringsAreEqualThenZero () {
+    public void whenStringsAreEqualThenZero() {
         ListCompare compare = new ListCompare();
         int rst = compare.compare(
                 "Ivanov",
@@ -18,7 +18,7 @@ public class ListCompareTest {
     }
 
     @Test
-    public void whenLeftLessThanRightResultShouldBeNegative () {
+    public void whenLeftLessThanRightResultShouldBeNegative() {
         ListCompare compare = new ListCompare();
         int rst = compare.compare(
                 "Ivanov",
@@ -28,7 +28,7 @@ public class ListCompareTest {
     }
 
     @Test
-    public void whenLeftGreaterThanRightResultShouldBePositive () {
+    public void whenLeftGreaterThanRightResultShouldBePositive() {
         ListCompare compare = new ListCompare();
         int rst = compare.compare(
                 "Petrov",
@@ -38,7 +38,7 @@ public class ListCompareTest {
     }
 
     @Test
-    public void secondCharOfLeftGreaterThanRightShouldBePositive(){
+    public void secondCharOfLeftGreaterThanRightShouldBePositive() {
         ListCompare compare = new ListCompare();
         int rst = compare.compare(
                 "Petrov",
@@ -48,7 +48,7 @@ public class ListCompareTest {
     }
 
     @Test
-    public void secondCharOfLeftLessThanRightShouldBeNegative(){
+    public void secondCharOfLeftLessThanRightShouldBeNegative() {
         ListCompare compare = new ListCompare();
         int rst = compare.compare(
                 "Patrova",

@@ -1,6 +1,6 @@
 package ru.job4j.set;
 
-public class User implements Comparable<User>{
+public class User implements Comparable<User> {
 
     private int age;
     private String name;
@@ -20,10 +20,7 @@ public class User implements Comparable<User>{
 
     @Override
     public String toString() {
-        return "User{" +
-                "age=" + age +
-                ", name='" + name + '\'' +
-                '}';
+        return "User{" + "age=" + age + ", name='" + name + '\'' + '}';
     }
 
     @Override
