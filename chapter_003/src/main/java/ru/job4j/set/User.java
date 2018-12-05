@@ -10,6 +10,21 @@ public class User implements Comparable<User>{
         this.name = name;
     }
 
+    public int getAge() {
+        return age;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "age=" + age +
+                ", name='" + name + '\'' +
+                '}';
+    }
 
     @Override
     public int compareTo(User o) {
