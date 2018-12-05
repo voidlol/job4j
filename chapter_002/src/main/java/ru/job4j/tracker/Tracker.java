@@ -32,11 +32,12 @@ public class Tracker {
      */
     public boolean replace(String id, Item item) {
         boolean result = false;
-        for (int i = 0; i < this.items.size(); i++) {
-            if (this.items.get(i).getId().equals(id)) {
+        for (Item i : items) {
+            if (i.getId().equals(id)) {
+                items.remove(i);
+                item.setId(i.getId());
+                items.add(item);
                 result = true;
-                item.setId(this.items.get(i).getId());
-                this.items.add(i, item);
                 break;
             }
         }
@@ -49,8 +50,8 @@ public class Tracker {
      */
     public boolean delete(String id) {
         boolean result = false;
-        for (int i = 0; i < this.items.size(); i++) {
-            if (this.items.get(i).getId().equals(id)) {
+        for (Item i : items) {
+            if (i.getId().equals(id)) {
                 result = true;
                 this.items.remove(i);
                 break;
