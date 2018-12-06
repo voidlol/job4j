@@ -13,8 +13,8 @@ public class LambdaFuncTest {
 
     @Test
     public void whenLineFunc() {
-        List<Double> list = new ArrayList<>(lf.diapason(1, 10, lf::square));
-        assertThat(list.get(0), is(1d));
+        List<Double> list = new ArrayList<>(lf.diapason(1, 10, lf::line));
+        assertThat(list.get(3), is(4d));
     }
 
     @Test
