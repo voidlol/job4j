@@ -172,7 +172,6 @@ public class MenuTracker {
 
         @Override
         public void execute(Input input, Tracker tracker) {
-            System.out.println("Выход.");
         }
     }
 }
