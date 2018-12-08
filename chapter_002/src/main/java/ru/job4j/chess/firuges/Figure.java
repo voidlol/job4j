@@ -20,7 +20,7 @@ public interface Figure {
         Cell[] steps = new Cell[size];
         Cell tmp = source;
         for (int i = 0; i < size; i++) {
-            steps[i] = Cell.getCell(tmp.x + dx, tmp.y + dy);
+            steps[i] = Cell.values()[8 * (tmp.x + dx) + tmp.y + dy];
             tmp = steps[i];
         }
         return steps;
