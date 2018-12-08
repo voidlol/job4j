@@ -13,15 +13,15 @@ import static org.junit.Assert.assertThat;
 public class StartUITest {
     private final PrintStream stdout = System.out;
     private final ByteArrayOutputStream out = new ByteArrayOutputStream();
-    private final String menu = "============МЕНЮ===========" + System.lineSeparator() +
-            "0. Добавить новую заявку" + System.lineSeparator() +
-            "1. Показать все заявки" + System.lineSeparator() +
-            "2. Изменить заявку" + System.lineSeparator() +
-            "3. Удалить заявку" + System.lineSeparator() +
-            "4. Поиск заявки по ID" + System.lineSeparator() +
-            "5. Поиск заявок по имени" + System.lineSeparator() +
-            "6. Выход" + System.lineSeparator() +
-            "===========================" + System.lineSeparator();
+    private final String menu = "============МЕНЮ===========" + System.lineSeparator()
+            + "0. Добавить новую заявку" + System.lineSeparator()
+            + "1. Показать все заявки" + System.lineSeparator()
+            + "2. Изменить заявку" + System.lineSeparator()
+            + "3. Удалить заявку" + System.lineSeparator()
+            + "4. Поиск заявки по ID" + System.lineSeparator()
+            + "5. Поиск заявок по имени" + System.lineSeparator()
+            + "6. Выход" + System.lineSeparator()
+            + "===========================" + System.lineSeparator();
 
     @Before
     public void loadOutput() {
@@ -60,10 +60,10 @@ public class StartUITest {
         ConsoleInput input = new StubInput(new String[]{"0", "test name", "desc", "6"});
         new StartUI(tracker, input).init();
         assertThat(tracker.findAll().get(0).getName(), is("test name"));
-        assertThat(this.out.toString(), is(this.menu +
-                "==Добавление новой заявки==" + System.lineSeparator() +
-                "Новая заявка с ID: " + tracker.findAll().get(0).getId() + System.lineSeparator() +
-                this.menu));
+        assertThat(this.out.toString(), is(this.menu
+                + "==Добавление новой заявки==" + System.lineSeparator()
+                + "Новая заявка с ID: " + tracker.findAll().get(0).getId() + System.lineSeparator()
+                + this.menu));
     }
 
     @Test
@@ -74,10 +74,10 @@ public class StartUITest {
         ConsoleInput input = new StubInput(new String[]{"2", item.getId(), "test name", "desc", "6"});
         new StartUI(tracker, input).init();
         assertThat(tracker.findAll().get(0).getName(), is("test name"));
-        assertThat(this.out.toString(), is(this.menu +
-                "======Изменить заявку======" + System.lineSeparator() +
-                "Заявка с ID: " + item.getId() + " обновлена." + System.lineSeparator() +
-                this.menu));
+        assertThat(this.out.toString(), is(this.menu
+                + "======Изменить заявку======" + System.lineSeparator()
+                + "Заявка с ID: " + item.getId() + " обновлена." + System.lineSeparator()
+                + this.menu));
     }
 
     @Test
@@ -90,10 +90,10 @@ public class StartUITest {
         ConsoleInput input = new StubInput(new String[]{"3", item1.getId(), "6"});
         new StartUI(tracker, input).init();
         assertThat(tracker.findAll().get(0).getName(), is("Privet 2"));
-        assertThat(this.out.toString(), is(this.menu +
-                "=======Удалить заявку======" + System.lineSeparator() +
-                "Заявка с ID: " + item1.getId() + " удалена." + System.lineSeparator() +
-                this.menu));
+        assertThat(this.out.toString(), is(this.menu
+                + "=======Удалить заявку======" + System.lineSeparator()
+                + "Заявка с ID: " + item1.getId() + " удалена." + System.lineSeparator()
+                + this.menu));
     }
 
     @Test
@@ -103,10 +103,10 @@ public class StartUITest {
         tracker.add(new Item("Privet 2", "Kak dela 2"));
         ConsoleInput input = new StubInput(new String[]{"3", "randomID", "6"});
         new StartUI(tracker, input).init();
-        assertThat(this.out.toString(), is(this.menu +
-                "=======Удалить заявку======" + System.lineSeparator() +
-                "Заявка с ID: " + "randomID" + " не найдена." + System.lineSeparator() +
-                this.menu));
+        assertThat(this.out.toString(), is(this.menu
+                + "=======Удалить заявку======" + System.lineSeparator()
+                + "Заявка с ID: " + "randomID" + " не найдена." + System.lineSeparator()
+                + this.menu));
     }
 
     @Test
@@ -118,13 +118,13 @@ public class StartUITest {
         tracker.add(item2);
         ConsoleInput input = new StubInput(new String[]{"1", "6"});
         new StartUI(tracker, input).init();
-        assertThat(this.out.toString(), is(this.menu +
-                "====Показать все заявки====" + System.lineSeparator() +
-                "Заявка: Privet" + System.lineSeparator() +
-                "Kak dela" + System.lineSeparator() +
-                "Заявка: Privet 2" + System.lineSeparator() +
-                "Kak dela 2" + System.lineSeparator() +
-                this.menu));
+        assertThat(this.out.toString(), is(this.menu
+                + "====Показать все заявки====" + System.lineSeparator()
+                + "Заявка: Privet" + System.lineSeparator()
+                + "Kak dela" + System.lineSeparator()
+                + "Заявка: Privet 2" + System.lineSeparator()
+                + "Kak dela 2" + System.lineSeparator()
+                + this.menu));
     }
 
     @Test
@@ -134,11 +134,11 @@ public class StartUITest {
         Item item2 = tracker.add(new Item("Privet 2", "Kak dela 2"));
         ConsoleInput input = new StubInput(new String[]{"4", item2.getId(), "6"});
         new StartUI(tracker, input).init();
-        assertThat(this.out.toString(), is(this.menu +
-                "=====Поиск заявки по ID====" + System.lineSeparator() +
-                "Заявка: Privet 2" + System.lineSeparator() +
-                "Kak dela 2" + System.lineSeparator() +
-                this.menu));
+        assertThat(this.out.toString(), is(this.menu
+                + "=====Поиск заявки по ID====" + System.lineSeparator()
+                + "Заявка: Privet 2" + System.lineSeparator()
+                + "Kak dela 2" + System.lineSeparator()
+                + this.menu));
     }
 
     @Test
@@ -148,10 +148,10 @@ public class StartUITest {
         tracker.add(new Item("Privet 2", "Kak dela 2"));
         ConsoleInput input = new StubInput(new String[]{"4", "randomID", "6"});
         new StartUI(tracker, input).init();
-        assertThat(this.out.toString(), is(this.menu +
-                "=====Поиск заявки по ID====" + System.lineSeparator() +
-                "Заявка с ID: randomID не найдена." + System.lineSeparator() +
-                this.menu));
+        assertThat(this.out.toString(), is(this.menu
+                + "=====Поиск заявки по ID====" + System.lineSeparator()
+                + "Заявка с ID: randomID не найдена." + System.lineSeparator()
+                + this.menu));
     }
 
     @Test
@@ -161,12 +161,12 @@ public class StartUITest {
         tracker.add(new Item("Privet 2", "Kak dela 2"));
         ConsoleInput input = new StubInput(new String[]{"5", "Privet 2", "6"});
         new StartUI(tracker, input).init();
-        assertThat(this.out.toString(), is(this.menu +
-                "===Поиск заявок по имени===" + System.lineSeparator() +
-                "Заявка: Privet 2" + System.lineSeparator() +
-                "Kak dela" + System.lineSeparator() +
-                "Заявка: Privet 2" + System.lineSeparator() +
-                "Kak dela 2" + System.lineSeparator() +
-                this.menu));
+        assertThat(this.out.toString(), is(this.menu
+                + "===Поиск заявок по имени===" + System.lineSeparator()
+                + "Заявка: Privet 2" + System.lineSeparator()
+                + "Kak dela" + System.lineSeparator()
+                + "Заявка: Privet 2" + System.lineSeparator()
+                + "Kak dela 2" + System.lineSeparator()
+                + this.menu));
     }
 }

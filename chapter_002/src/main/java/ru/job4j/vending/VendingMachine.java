@@ -21,7 +21,9 @@ public class VendingMachine {
             }
             index--;
         }
-        if (change > 0) { list.add(change); }
+        if (change > 0) {
+            list.add(change);
+        }
         return list.stream().mapToInt(Integer::intValue).toArray();
     }
 
