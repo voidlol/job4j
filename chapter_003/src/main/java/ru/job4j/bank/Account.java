@@ -36,18 +36,14 @@ public class Account {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+        if (this == o) return true;
+        if (!(o instanceof Account)) return false;
         Account account = (Account) o;
-        return this.getRequisites().equals(account.getRequisites());
+        return getRequisites().equals(account.getRequisites());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(requisites);
+        return Objects.hash(getRequisites());
     }
 }

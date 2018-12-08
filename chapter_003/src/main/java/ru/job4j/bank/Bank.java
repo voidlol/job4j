@@ -10,25 +10,11 @@ public class Bank {
     private Map<User, List<Account>> db = new TreeMap<>();
 
     private User findByPassport(String passport) {
-        User result = null;
-        for (User user : db.keySet()) {
-            if (user.getPassport().equals(passport)) {
-                result = user;
-                break;
-            }
-        }
-        return result;
+        return db.keySet().stream().filter(user -> passport.equals(user.getPassport())).findAny().orElse(null);
     }
 
     private Account findByRequisites(User user, String requisites) {
-        Account result = null;
-        for (Account account : db.get(user)) {
-            if (account.getRequisites().equals(requisites)) {
-                result = account;
-                break;
-            }
-        }
-        return result;
+        return db.get(user).stream().filter(account -> requisites.equals(account.getRequisites())).findAny().orElse(null);
     }
 
     public void addUser(User user) {
