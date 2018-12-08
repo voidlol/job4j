@@ -16,7 +16,7 @@ public class StartUI {
         int answer = -1;
         menu.fillMenu();
         do {
-            menu.showMenu();
+            menu.showMenu(System.out::println);
             answer = input.getString("Выберите пункт меню: ", menu.getRange());
             menu.select(answer);
         } while (EXIT != answer);

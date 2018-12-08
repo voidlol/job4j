@@ -3,6 +3,7 @@ package ru.job4j.tracker;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * @author Andrey Savelov (udroguedozed@gmail.com)
@@ -40,11 +41,16 @@ public class MenuTracker {
         this.actions.get(key).execute(this.input, this.tracker);
     }
 
-    public void showMenu() {
-        System.out.println("============МЕНЮ===========");
-        actions.forEach(System.out::println);
-        System.out.println("===========================");
+    public void showMenu(Consumer<String> out) {
+        out.accept("============МЕНЮ===========");
+        for (UserAction action : this.actions) {
+            if (action != null) {
+                out.accept(action.toString());
+            }
+        }
+        out.accept("===========================");
     }
+
 
     public int[] getRange() {
         int[] range = new int[this.actions.size()];

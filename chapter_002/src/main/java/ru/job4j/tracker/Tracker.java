@@ -90,7 +90,6 @@ public class Tracker {
      */
     public List<Item> findByName(String name) {
         List<Item> result = new ArrayList<>();
-        int i = 0;
         for (Item item : this.items) {
             if (item != null && item.getName().equals(name)) {
                 result.add(item);
