@@ -17,10 +17,10 @@ public abstract class Rook implements Figure {
 
     @Override
     public Cell[] way(Cell source, Cell dest) {
-        if (!(isHorizontal(source, dest) || isVertical(source, dest))) {
+        if (!isCorrectMove(source, dest, (dx, dy) -> (dy == 0 && dx != 0) || (dy != 0 && dx == 0))) {
             throw new ImpossibleMoveException("Unable to move that way.");
         }
-        int size = isHorizontal(source, dest) ? Math.abs(source.x - dest.x) : Math.abs(source.y - dest.y);
+        int size = Math.abs(source.x - dest.x) > 0 ? Math.abs(source.x - dest.x) : Math.abs(source.y - dest.y);
         return getCells(source, dest, size);
     }
 

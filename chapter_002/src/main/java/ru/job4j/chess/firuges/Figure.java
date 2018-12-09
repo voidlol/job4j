@@ -1,5 +1,7 @@
 package ru.job4j.chess.firuges;
 
+import java.util.function.BiPredicate;
+
 public interface Figure {
     Cell position();
 
@@ -26,27 +28,10 @@ public interface Figure {
         return steps;
     }
 
-    default boolean isDiagonal(Cell source, Cell dest) {
-        boolean result = false;
-        if (Math.abs(source.x - dest.x) == Math.abs(source.y - dest.y)) {
-            result = true;
-        }
-        return result;
+    default boolean isCorrectMove(Cell source, Cell dest, BiPredicate<Integer, Integer> predicate) {
+        int dx = Math.abs(source.x - dest.x);
+        int dy = Math.abs(source.y - dest.y);
+        return predicate.test(dx, dy);
     }
 
-    default boolean isHorizontal(Cell source, Cell dest) {
-        boolean result = false;
-        if (dest.y == source.y && dest.x != source.x) {
-            result = true;
-        }
-        return result;
-    }
-
-    default boolean isVertical(Cell source, Cell dest) {
-        boolean result = false;
-        if (dest.y != source.y && dest.x == source.x) {
-            result = true;
-        }
-        return result;
-    }
 }

@@ -17,19 +17,10 @@ public abstract class King implements Figure {
 
     @Override
     public Cell[] way(Cell source, Cell dest) {
-        if (!isCorrectMove(source, dest)) {
+        if (!isCorrectMove(source, dest, (dx, dy) -> ((dx == 1 && dy == 1) || (dx == 1 && dy == 0) || (dx == 0 && dy == 1)))) {
             throw new ImpossibleMoveException("Unable to move that way.");
         }
         return new Cell[] {dest};
     }
 
-    private boolean isCorrectMove(Cell source, Cell dest) {
-        boolean result = false;
-        int dx = Math.abs(source.x - dest.x);
-        int dy = Math.abs(source.y - dest.y);
-        if ((dx == 1 && dy == 1) || (dx == 1 && dy == 0) || (dx == 0 && dy == 1)) {
-            result = true;
-        }
-        return result;
-    }
 }

@@ -17,7 +17,7 @@ public abstract class Bishop implements Figure {
 
     @Override
     public Cell[] way(Cell source, Cell dest) {
-        if (!isDiagonal(source, dest)) {
+        if (!isCorrectMove(source, dest, (dx, dy) -> dx == dy)) {
             throw new ImpossibleMoveException("Так ходить нельзя!");
         }
         int size = Math.abs(source.x - dest.x);

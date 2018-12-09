@@ -16,20 +16,10 @@ public abstract class Knight implements Figure {
 
     @Override
     public Cell[] way(Cell source, Cell dest) {
-        if (!isCorrectMove(source, dest)) {
+        if (!isCorrectMove(source, dest, (dx, dy) -> (dx == 1 && dy == 2) || (dx == 2 && dy == 1))) {
             throw new ImpossibleMoveException("Unable to move that way");
         }
         return new Cell[] {dest};
     }
-
-    private boolean isCorrectMove(Cell source, Cell dest) {
-        boolean result = false;
-        int dx = Math.abs(dest.x - source.x);
-        int dy = Math.abs(dest.y - source.y);
-        if ((dx == 1 && dy == 2) || (dx == 2 && dy == 1)) {
-            result = true;
-        }
-        return result;
-    }
-
+    
 }
