@@ -4,6 +4,7 @@ import ru.job4j.chess.firuges.Cell;
 import ru.job4j.chess.firuges.Figure;
 
 import java.util.Arrays;
+import java.util.stream.IntStream;
 
 /**
  * //TODO add comments.
@@ -61,7 +62,8 @@ public class Logic {
     }
 
     private int findBy(Cell cell) {
-        Figure tmp = Arrays.stream(figures).filter(f -> f != null && f.position().equals(cell)).findFirst().orElse(null);
-        return tmp != null ? Arrays.asList(figures).indexOf(tmp) : -1;
+        return IntStream.range(0, this.figures.length)
+                .filter(index -> this.figures[index] != null && this.figures[index].position().equals(cell))
+                .findFirst().orElse(-1);
     }
 }
