@@ -12,7 +12,7 @@ public class PriorityQueue {
      * @param task задача
      */
     public void put(Task task) {
-        int index = (int) tasks.stream().filter(t -> task.getPriority() >= t.getPriority()).count();
+        var index = (int) tasks.stream().filter(t -> task.getPriority() >= t.getPriority()).count();
         tasks.add(index, task);
     }
 
