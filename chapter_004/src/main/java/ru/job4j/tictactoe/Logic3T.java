@@ -23,31 +23,28 @@ public class Logic3T {
         return result;
     }
 
+    private boolean isWinner(Predicate<Figure3T> f) {
+        return this.fillBy(f, 0, 0, 1, 0)
+                || this.fillBy(f, 0, 1, 1, 0)
+                || this.fillBy(f, 0, 2, 1, 0)
+                || this.fillBy(f, 0, 0, 0, 1)
+                || this.fillBy(f, 1, 0, 0, 1)
+                || this.fillBy(f, 2, 0, 0, 1)
+                || this.fillBy(f, 0, 0, 1, 1)
+                || this.fillBy(f, this.table.length - 1, 0, -1, 1);
+    }
+
     public boolean isWinnerX() {
-        return this.fillBy(Figure3T::hasMarkX, 0, 0, 1, 0) ||
-                this.fillBy(Figure3T::hasMarkX, 0, 1, 1, 0) ||
-                this.fillBy(Figure3T::hasMarkX, 0, 2, 1, 0) ||
-                this.fillBy(Figure3T::hasMarkX, 0, 0, 0, 1) ||
-                this.fillBy(Figure3T::hasMarkX, 1, 0, 0, 1) ||
-                this.fillBy(Figure3T::hasMarkX, 2, 0, 0, 1) ||
-                this.fillBy(Figure3T::hasMarkX, 0,0, 1, 1) ||
-                this.fillBy(Figure3T::hasMarkX, this.table.length - 1 , 0, -1, 1);
+        return isWinner(Figure3T::hasMarkX);
     }
 
     public boolean isWinnerO() {
-        return this.fillBy(Figure3T::hasMarkO, 0, 0, 1, 0) ||
-                this.fillBy(Figure3T::hasMarkO, 0, 1, 1, 0) ||
-                this.fillBy(Figure3T::hasMarkO, 0, 2, 1, 0) ||
-                this.fillBy(Figure3T::hasMarkO, 0, 0, 0, 1) ||
-                this.fillBy(Figure3T::hasMarkO, 1, 0, 0, 1) ||
-                this.fillBy(Figure3T::hasMarkO, 2, 0, 0, 1) ||
-                this.fillBy(Figure3T::hasMarkO, 0,0, 1, 1) ||
-                this.fillBy(Figure3T::hasMarkO, this.table.length - 1, 0, -1, 1);
+        return isWinner(Figure3T::hasMarkO);
     }
 
     public boolean hasGap() {
-        return !this.fillBy(Figure3T::isNotEmpty, 0, 0 ,1, 0) ||
-                !this.fillBy(Figure3T::isNotEmpty, 0, 1, 1, 0) ||
-                !this.fillBy(Figure3T::isNotEmpty, 0, 2, 1, 0);
+        return !(this.fillBy(Figure3T::isNotEmpty, 0, 0, 1, 0)
+                || this.fillBy(Figure3T::isNotEmpty, 0, 1, 1, 0)
+                || this.fillBy(Figure3T::isNotEmpty, 0, 2, 1, 0));
     }
 }

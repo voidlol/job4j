@@ -23,8 +23,7 @@ public class Student implements Comparator<Student> {
     }
 
     public List<Student> levelOf(List<Student> students, int bound) {
-        students.sort(this::compare);
-        return students.stream().flatMap(Stream::ofNullable).takeWhile(s -> s.getScope() > bound).collect(Collectors.toList());
+        return students.stream().sorted(this::compare).flatMap(Stream::ofNullable).takeWhile(s -> s.getScope() > bound).collect(Collectors.toList());
     }
 
     @Override
