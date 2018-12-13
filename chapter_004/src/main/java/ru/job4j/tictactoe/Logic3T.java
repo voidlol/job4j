@@ -44,7 +44,7 @@ public class Logic3T {
 
     public boolean hasGap() {
         return !(this.fillBy(Figure3T::isNotEmpty, 0, 0, 1, 0)
-                || this.fillBy(Figure3T::isNotEmpty, 0, 1, 1, 0)
-                || this.fillBy(Figure3T::isNotEmpty, 0, 2, 1, 0));
+                && this.fillBy(Figure3T::isNotEmpty, 0, 1, 1, 0)
+                && this.fillBy(Figure3T::isNotEmpty, 0, 2, 1, 0));
     }
 }
