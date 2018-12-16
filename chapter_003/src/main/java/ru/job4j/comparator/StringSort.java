@@ -1,57 +1,41 @@
 package ru.job4j.comparator;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.*;
 
 public class StringSort {
 
-    private List<String[]> getDepartments(String[] value) {
-        List<String> list = new ArrayList<>(Arrays.asList(value));
-        addDepartments(list);
-        return list.stream().map(s -> s.split("\\\\")).collect(Collectors.toList());
-    }
-
-    private void addDepartments(List<String> list) {
-        for (int i = 0; i < list.size(); i++) {
-            int index = list.get(i).lastIndexOf('\\');
-            if (index != -1 && !list.contains(list.get(i).substring(0, index))) {
-                list.add(list.get(i).substring(0, index));
+    private List<Org> getDepartments(String[] value) {
+        Set<Org> set = new HashSet<>();
+        for (String s : value) {
+            Org o = new Org(s);
+            set.add(o);
+            if (o.getDeps().size() > 1) {
+                set.add(new Org(o.getDeps().subList(0, o.getDeps().size() - 1)));
             }
         }
+        return new ArrayList<>(set);
     }
 
-    private String[] convert(List<String[]> departments) {
+    private String[] convert(List<Org> departments) {
         String[] result = new String[departments.size()];
-        StringBuilder tmp;
         int index = 0;
-        for (String[] strings : departments) {
-            tmp = new StringBuilder();
-            for (int i = 0; i < strings.length; i++) {
-                if (i > 0) {
-                    tmp.append("\\").append(strings[i]);
-                } else {
-                    tmp.append(strings[i]);
-                }
-            }
-            result[index++] = tmp.toString();
+        for (Org o : departments) {
+            result[index++] = o.toString();
         }
         return result;
     }
 
     public String[] sortUp(String[] value) {
-        List<String[]> departments = getDepartments(value);
-        Comparator<String[]> departmentCompar = Comparator.comparing(o -> o[0]);
-        departments.sort(departmentCompar.thenComparingInt(o -> o.length));
+        List<Org> departments = getDepartments(value);
+        Comparator<Org> departmentCompar = Comparator.comparing(o -> o.getDeps().get(0));
+        departments.sort(departmentCompar.thenComparing(o -> o.getDeps().get(o.getDeps().size() - 1)));
         return convert(departments);
     }
 
     public String[] sortDown(String[] value) {
-        List<String[]> departments = getDepartments(value);
-        Comparator<String[]> departmentCompar = (o1, o2) -> o2[0].compareTo(o1[0]);
-        departments.sort(departmentCompar.thenComparingInt(o -> o.length).thenComparing((o1, o2) -> o2[o2.length - 1].compareTo(o1[o1.length - 1])));
+        List<Org> departments = getDepartments(value);
+        Comparator<Org> departmentCompar = (o1, o2) -> o2.getDeps().get(0).compareTo(o1.getDeps().get(0));
+        departments.sort(departmentCompar.thenComparingInt(o -> o.getDeps().size()).thenComparing((o1, o2) -> o2.getDeps().get(o2.getDeps().size() - 1).compareTo(o1.getDeps().get(o1.getDeps().size() - 1))));
         return convert(departments);
     }
 }
