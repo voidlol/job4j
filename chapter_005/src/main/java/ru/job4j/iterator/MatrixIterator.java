@@ -1,8 +1,9 @@
 package ru.job4j.iterator;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
-public class MatrixIterator implements Iterator {
+public class MatrixIterator implements Iterator<Integer> {
     private final int[][] values;
     private int rows = 0;
     private int cells = 0;
@@ -17,10 +18,13 @@ public class MatrixIterator implements Iterator {
     }
 
     @Override
-    public Object next() {
+    public Integer next() {
         if (this.values[rows].length == cells) {
             rows++;
             cells = 0;
+        }
+        if (!hasNext()) {
+            throw new NoSuchElementException();
         }
         return this.values[rows][cells++];
     }
