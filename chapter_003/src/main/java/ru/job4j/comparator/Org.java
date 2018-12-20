@@ -35,9 +35,9 @@ public class Org {
     @Override
     public boolean equals(Object o) {
         if (this == o) {
-            return true ;
+            return true;
         }
-        if (!(o instanceof Org)){
+        if (!(o instanceof Org)) {
             return false;
         }
         Org org = (Org) o;
