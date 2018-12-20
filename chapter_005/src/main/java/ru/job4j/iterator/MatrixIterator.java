@@ -19,12 +19,12 @@ public class MatrixIterator implements Iterator<Integer> {
 
     @Override
     public Integer next() {
+        if (!hasNext()) {
+            throw new NoSuchElementException();
+        }
         if (this.values[rows].length == cells) {
             rows++;
             cells = 0;
-        }
-        if (!hasNext()) {
-            throw new NoSuchElementException();
         }
         return this.values[rows][cells++];
     }
