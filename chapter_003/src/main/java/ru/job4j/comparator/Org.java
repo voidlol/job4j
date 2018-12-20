@@ -34,8 +34,12 @@ public class Org {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Org)) return false;
+        if (this == o) {
+            return true ;
+        }
+        if (!(o instanceof Org)){
+            return false;
+        }
         Org org = (Org) o;
         return Objects.equals(getDeps(), org.getDeps());
     }
