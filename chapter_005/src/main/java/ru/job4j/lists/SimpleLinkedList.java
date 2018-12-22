@@ -31,9 +31,13 @@ public class SimpleLinkedList<T> implements Iterable {
     }
 
     public T delete() {
-        this.first = this.first.next;
-        this.modCount++;
-        return this.first.element;
+        T rst = null;
+        if (this.first != null && this.first.next != null) {
+            this.first = this.first.next;
+            rst = this.first.element;
+            this.modCount++;
+        }
+        return rst;
     }
 
     public int getSize() {
