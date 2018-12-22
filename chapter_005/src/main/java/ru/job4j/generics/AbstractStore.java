@@ -23,10 +23,8 @@ public abstract class AbstractStore<T extends Base> implements Store<T> {
     public boolean delete(String id) {
         boolean rst = false;
         Iterator<T> it = store.iterator();
-        T tmp = null;
         for (int i = 0; it.hasNext(); i++) {
-            tmp = it.next();
-            if (id.equals(tmp.getId())) {
+            if (id.equals(it.next().getId())) {
                 store.remove(i);
                 rst = true;
                 break;
@@ -53,10 +51,8 @@ public abstract class AbstractStore<T extends Base> implements Store<T> {
     public boolean replace(String id, T model) {
         boolean rst = false;
         Iterator<T> it = store.iterator();
-        T tmp = null;
         for (int i = 0; it.hasNext(); i++) {
-            tmp = it.next();
-            if (id.equals(tmp.getId())) {
+            if (id.equals(it.next().getId())) {
                 store.set(i, model);
                 rst = true;
                 break;
