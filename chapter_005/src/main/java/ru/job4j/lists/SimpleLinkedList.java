@@ -32,9 +32,14 @@ public class SimpleLinkedList<T> implements Iterable {
 
     public T delete() {
         T rst = null;
-        if (this.first != null && this.first.next != null) {
-            this.first = this.first.next;
-            rst = this.first.element;
+        if (size > 0) {
+            if (size == 1) {
+                rst = this.first.element;
+            } else {
+                this.first = this.first.next;
+                rst = this.first.element;
+            }
+            size--;
             this.modCount++;
         }
         return rst;
