@@ -1,5 +1,6 @@
 package ru.job4j.lists;
 
+import java.util.Arrays;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -34,7 +35,7 @@ public class DynamicArray<T> implements Iterable<T> {
     }
 
     private void grow() {
-        System.arraycopy(this.array, 0, this.array, 0, this.array.length * NEW_SIZE_MULTIPLIER);
+        this.array = Arrays.copyOf(this.array, this.array.length * NEW_SIZE_MULTIPLIER);
     }
 
     @Override
