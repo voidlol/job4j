@@ -27,18 +27,9 @@ public class DynamicArrayTest {
 
     @Test
     public void grow() {
-        da.add(5);
-        da.add(5);
-        da.add(5);
-        da.add(5);
-        da.add(5);
-        da.add(5);
-        da.add(5);
-        da.add(5);
-        da.add(5);
-        da.add(5);
-        da.add(5);
-        da.add(5);
+        for (int i = 0; i < 15; i++) {
+            da.add(i);
+        }
     }
 
     @Test
