@@ -26,6 +26,22 @@ public class DynamicArrayTest {
     }
 
     @Test
+    public void grow() {
+        da.add(5);
+        da.add(5);
+        da.add(5);
+        da.add(5);
+        da.add(5);
+        da.add(5);
+        da.add(5);
+        da.add(5);
+        da.add(5);
+        da.add(5);
+        da.add(5);
+        da.add(5);
+    }
+
+    @Test
     public void get() {
         da.add(10);
         assertThat(da.get(0), is(10));
