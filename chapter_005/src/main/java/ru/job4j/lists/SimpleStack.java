@@ -10,10 +10,8 @@ public class SimpleStack<T> {
     int size = 0;
 
     public T poll() {
-        T rst = sll.get(0);
-        sll.delete();
         size--;
-        return rst;
+        return sll.delete();
     }
 
     public void push(T element) {
