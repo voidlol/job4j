@@ -28,11 +28,11 @@ public class SimpleQueueTest {
 
     @Test
     public void poll2() {
-        sq.push(5);
-        sq.push(9);
-        assertThat(sq.poll(), is(5));
+        sq.push(4);
+        sq.push(6);
+        assertThat(sq.poll(), is(4));
         sq.push(11);
-        assertThat(sq.poll(), is(9));
+        assertThat(sq.poll(), is(6));
     }
 
     @Test
