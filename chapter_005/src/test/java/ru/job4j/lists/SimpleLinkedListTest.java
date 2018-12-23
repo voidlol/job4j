@@ -32,7 +32,7 @@ public class SimpleLinkedListTest {
     }
 
     @Test
-    public void whenDeleteFirstElementThenReturnsSecondElement() {
-        assertThat(list.delete(), is(2));
+    public void whenDeleteFirstElementThenReturnsRemovedElement() {
+        assertThat(list.delete(), is(3));
     }
 }
