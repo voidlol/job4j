@@ -11,20 +11,15 @@ public class SimpleQueue<T> {
     private SimpleStack<T> ss2 = new SimpleStack<>();
 
     public T poll() {
-        T rst = null;
-        if (!ss1.isEmpty()) {
-            rst = ss1.poll();
+        if (ss2.isEmpty()) {
+            while(!ss1.isEmpty()) {
+                ss2.push(ss1.poll());
+            }
         }
-        return rst;
+        return ss2.poll();
     }
 
     public void push(T value) {
-        while (!ss1.isEmpty()) {
-            ss2.push(ss1.poll());
-        }
         ss1.push(value);
-        while (!ss2.isEmpty()) {
-            ss1.push(ss2.poll());
-        }
     }
 }
