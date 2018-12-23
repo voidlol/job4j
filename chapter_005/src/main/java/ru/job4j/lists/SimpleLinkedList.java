@@ -9,7 +9,7 @@ import java.util.NoSuchElementException;
  * @version - 1.0
  * @since - 22.12.2018
  */
-public class SimpleLinkedList<T> implements Iterable {
+public class SimpleLinkedList<T> implements Iterable<T> {
     private int size;
     private Node<T> first;
     private int modCount = 0;
@@ -50,8 +50,8 @@ public class SimpleLinkedList<T> implements Iterable {
     }
 
     @Override
-    public Iterator iterator() {
-        return new Iterator() {
+    public Iterator<T> iterator() {
+        return new Iterator<>() {
 
             private Node<T> position = first;
             private int expectedModCount = modCount;
