@@ -12,7 +12,7 @@ public class SimpleQueue<T> {
 
     public T poll() {
         if (ss2.isEmpty()) {
-            while(!ss1.isEmpty()) {
+            while (!ss1.isEmpty()) {
                 ss2.push(ss1.poll());
             }
         }
