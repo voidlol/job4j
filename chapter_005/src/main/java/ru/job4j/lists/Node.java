@@ -1,8 +1,5 @@
 package ru.job4j.lists;
 
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  * @author - Andrey Savelov
  * @version - 1.0
@@ -17,16 +14,16 @@ public class Node<T> {
         this.next = null;
     }
 
-    public static boolean hasCycle(Node first) {
-        Set<Node> set = new HashSet<>();
+    public static boolean hasCycle(Node slow) {
         boolean rst = false;
-        while (first != null) {
-            if (set.contains(first)) {
+        Node fast = slow;
+        while (slow != null && fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast) {
                 rst = true;
                 break;
             }
-            set.add(first);
-            first = first.next;
         }
 
         return rst;
