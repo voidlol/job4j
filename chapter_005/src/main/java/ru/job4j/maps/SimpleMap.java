@@ -4,7 +4,7 @@ import java.util.*;
 
 /**
  * @author - Andrey Savelov
- * @version - 1.0
+ * @version - 1.1
  * @since - 26.12.2018
  */
 public class SimpleMap<K, V> implements Iterable<SimpleMap.Node<K, V>> {
@@ -20,23 +20,44 @@ public class SimpleMap<K, V> implements Iterable<SimpleMap.Node<K, V>> {
     }
 
     private int hash(K o) {
-        int h = 31 * 17 + o.hashCode();
-        return h & (array.length - 1);
+        int h = o.hashCode();
+        return (h ^ (h >>> 16) & h);
     }
 
     private void grow() {
-        array = Arrays.copyOf(array, array.length * 2);
+        if (++currentSize == array.length * LOAD_FACTOR) {
+            int newLength = array.length << 1;
+            Node<K, V>[] newArray = new Node[newLength];
+            for (int i = 0; i < array.length; i++) {
+                if (array[i] != null) {
+                    newArray[(newLength - 1) & array[i].hash] = array[i];
+                }
+            }
+            array = newArray;
+        }
     }
 
     public boolean insert(K key, V value) {
-        boolean rst = false;
+        boolean rst = true;
         int hash = hash(key);
-        if (array[hash] == null) {
-            rst = true;
-            array[hash] = new Node<>(key, value);
+        Node current = array[(array.length - 1) & hash];
+        if (array[(array.length - 1) & hash] == null) {
+            array[(array.length - 1) & hash] = new Node<>(key, value, hash);
             modCount++;
-            if (++currentSize == array.length * LOAD_FACTOR) {
-                grow();
+            grow();
+        } else {
+            while (current != null) {
+                if (current.hash == hash && current.key.equals(key)) {
+                    rst = false;
+                    break;
+                } else if (current.next != null){
+                    current = current.next;
+                } else {
+                    break;
+                }
+            }
+            if (rst) {
+                current.next = new Node(key, value, hash);
             }
         }
 
@@ -45,18 +66,41 @@ public class SimpleMap<K, V> implements Iterable<SimpleMap.Node<K, V>> {
 
     public V get(K key) {
         int hash = hash(key);
-        return array[hash] != null  && array[hash].key == key ? array[hash].value : null;
+        V rst = null;
+        Node<K, V> current = array[(array.length - 1) & hash];
+        while (current != null) {
+            if (current.hash == hash && current.key.equals(key)) {
+                rst = current.value;
+                break;
+            } else {
+                current = current.next;
+            }
+        }
+        return rst;
     }
 
     public boolean delete(K key) {
         boolean rst = false;
         int hash = hash(key);
-        if (array[hash] != null) {
-            rst = true;
-            array[hash] = null;
-            currentSize--;
-            modCount++;
+        Node<K, V> current = array[(array.length - 1) & hash];
+        Node<K, V> prev = array[(array.length - 1) & hash];
+        while (current != null) {
+            if (current.hash == hash && current.key.equals(key)) {
+                if (current.next == null) {
+                    prev.next = null;
+                } else {
+                    prev.next = current.next;
+                }
+                rst = true;
+                modCount++;
+                break;
+            } else {
+                prev = current;
+                current = current.next;
+            }
+
         }
+
         return rst;
     }
 
@@ -65,6 +109,16 @@ public class SimpleMap<K, V> implements Iterable<SimpleMap.Node<K, V>> {
         return new Iterator<>() {
             private int expectedModCount = modCount;
             private int index = 0;
+            private Node<K, V> position;
+            private Node<K, V> nextPos = array[index];
+
+            private void getPos() {
+                position = nextPos;
+                while (position == null) {
+                    position = array[++index];
+                }
+                nextPos = position.next;
+            }
 
             @Override
             public boolean hasNext() {
@@ -72,11 +126,21 @@ public class SimpleMap<K, V> implements Iterable<SimpleMap.Node<K, V>> {
                     throw new ConcurrentModificationException();
                 }
                 boolean rst = false;
-                for (; index < array.length - 1; index++) {
-                    if (array[index] != null) {
-                        return true;
+                if (index < array.length) {
+                    if (nextPos != null) {
+                        rst = true;
+                    } else {
+                        for (int i = index + 1; i < array.length; i++) {
+                            if (array[i] != null) {
+                                rst = true;
+                                break;
+                            }
+                        }
                     }
+                } else if (nextPos != null) {
+                    rst = true;
                 }
+
                 return rst;
             }
 
@@ -85,7 +149,8 @@ public class SimpleMap<K, V> implements Iterable<SimpleMap.Node<K, V>> {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                return array[index++];
+                getPos();
+                return position;
             }
         };
     }
@@ -93,15 +158,19 @@ public class SimpleMap<K, V> implements Iterable<SimpleMap.Node<K, V>> {
     static class Node<K, V> {
         private K key;
         private V value;
+        private Node<K, V> next = null;
+        private int hash;
 
-        public Node(K key, V value) {
+        public Node(K key, V value, int hash) {
             this.key = key;
             this.value = value;
+            this.hash = hash;
         }
 
         @Override
         public String toString() {
             return String.format("Key = %s%nValue = %s", key, value);
         }
+
     }
 }

@@ -60,12 +60,12 @@ public class SimpleMapTest {
     @Test
     public void growTest() {
         int count = 0;
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < 300000; i++) {
             if (sm.insert(String.valueOf(i), i)) {
                 count++;
             }
         }
-        System.out.println(count);
         assertThat(count > 16, is(true));
     }
+
 }
