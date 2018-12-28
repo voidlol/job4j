@@ -25,12 +25,29 @@ public class SimpleMap<K, V> implements Iterable<SimpleMap.Node<K, V>> {
     }
 
     private void grow() {
-        if (++currentSize == array.length * LOAD_FACTOR) {
+        if (currentSize > array.length * LOAD_FACTOR) {
             int newLength = array.length << 1;
             Node<K, V>[] newArray = new Node[newLength];
             for (int i = 0; i < array.length; i++) {
                 if (array[i] != null) {
-                    newArray[(newLength - 1) & array[i].hash] = array[i];
+                    Node<K, V> e = array[i];
+                    if (e.next != null) {
+                        while (e != null) {
+                            if (newArray[(newLength - 1) & e.hash] == null) {
+                                newArray[(newLength - 1) & e.hash] = e;
+                                break;
+                            } else {
+                                Node<K, V> se = e;
+                                while (se.next != null) {
+                                    se = se.next;
+                                }
+                                se.next = e;
+                            }
+                            e = e.next;
+                        }
+                    } else {
+                        newArray[(newLength - 1) & e.hash] = e;
+                    }
                 }
             }
             array = newArray;
@@ -43,14 +60,12 @@ public class SimpleMap<K, V> implements Iterable<SimpleMap.Node<K, V>> {
         Node current = array[(array.length - 1) & hash];
         if (array[(array.length - 1) & hash] == null) {
             array[(array.length - 1) & hash] = new Node<>(key, value, hash);
-            modCount++;
-            grow();
         } else {
             while (current != null) {
                 if (current.hash == hash && current.key.equals(key)) {
                     rst = false;
                     break;
-                } else if (current.next != null){
+                } else if (current.next != null) {
                     current = current.next;
                 } else {
                     break;
@@ -60,7 +75,11 @@ public class SimpleMap<K, V> implements Iterable<SimpleMap.Node<K, V>> {
                 current.next = new Node(key, value, hash);
             }
         }
-
+        if (rst) {
+            modCount++;
+            currentSize++;
+            grow();
+        }
         return rst;
     }
 

@@ -2,7 +2,9 @@ package ru.job4j.maps;
 
 import org.junit.Test;
 
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
@@ -60,7 +62,7 @@ public class SimpleMapTest {
     @Test
     public void growTest() {
         int count = 0;
-        for (int i = 0; i < 300000; i++) {
+        for (int i = 0; i < 900000; i++) {
             if (sm.insert(String.valueOf(i), i)) {
                 count++;
             }
@@ -68,4 +70,13 @@ public class SimpleMapTest {
         assertThat(count > 16, is(true));
     }
 
+    @Test
+    public void hashMapGrowTest() {
+        int count = 20;
+        Map<String, Integer> map = new HashMap<>();
+        for (int i = 0; i < 900000; i++) {
+            map.put(String.valueOf(i), i);
+        }
+        assertThat(count > 16, is(true));
+    }
 }
