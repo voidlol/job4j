@@ -129,39 +129,17 @@ public class SimpleMap<K, V> implements Iterable<SimpleMap.Node<K, V>> {
         return new Iterator<>() {
             private int expectedModCount = modCount;
             private int index = 0;
+            int counter = 0;
             private Node<K, V> position;
-            private Node<K, V> nextPos = array[index];
 
-            private void getPos() {
-                position = nextPos;
-                while (position == null) {
-                    position = array[++index];
-                }
-                nextPos = position.next;
-            }
 
             @Override
             public boolean hasNext() {
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                boolean rst = false;
-                if (index < array.length) {
-                    if (nextPos != null) {
-                        rst = true;
-                    } else {
-                        for (int i = index + 1; i < array.length; i++) {
-                            if (array[i] != null) {
-                                rst = true;
-                                break;
-                            }
-                        }
-                    }
-                } else if (nextPos != null) {
-                    rst = true;
-                }
 
-                return rst;
+                return currentSize > counter;
             }
 
             @Override
@@ -169,8 +147,19 @@ public class SimpleMap<K, V> implements Iterable<SimpleMap.Node<K, V>> {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                getPos();
-                return position;
+                if (position == null) {
+                    for (; index < array.length; index++) {
+                        if (array[index] != null) {
+                            position = array[index];
+                            index++;
+                            break;
+                        }
+                    }
+                }
+                Node<K, V> rst = new Node<>(position.key, position.value);
+                position = position.next;
+                counter++;
+                return rst;
             }
         };
     }
@@ -185,6 +174,10 @@ public class SimpleMap<K, V> implements Iterable<SimpleMap.Node<K, V>> {
             this.key = key;
             this.value = value;
             this.hash = hash;
+        }
+
+        public Node(K key, V value) {
+            this(key, value, 0);
         }
 
         @Override
