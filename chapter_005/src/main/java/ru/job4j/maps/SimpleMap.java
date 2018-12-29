@@ -28,15 +28,16 @@ public class SimpleMap<K, V> implements Iterable<SimpleMap.Node<K, V>> {
         while (e != null) {
             if (newArray[(newLength - 1) & e.hash] == null) {
                 newArray[(newLength - 1) & e.hash] = e;
-                break;
             } else {
-                Node<K, V> se = e;
+                Node<K, V> se = newArray[(newLength - 1) & e.hash];
                 while (se.next != null) {
                     se = se.next;
                 }
                 se.next = e;
             }
-            e = e.next;
+            Node<K, V> ne = e.next;
+            e.next = null;
+            e = ne;
         }
     }
 
