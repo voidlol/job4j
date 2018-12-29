@@ -21,13 +21,13 @@ public class Logic {
         this.figures[this.index++] = figure;
     }
 
-    public boolean move(Cell source, Cell dest) throws ImpossibleMoveException, OccupiedWayException, FigureNotFoundException {
+    public boolean move(Cell source, Cell dest) {
         boolean rst = false;
-        int index = this.findBy(source);
-        if (index == -1) {
+        int i = this.findBy(source);
+        if (i == -1) {
             throw new FigureNotFoundException("Not found");
         }
-        Cell[] steps = this.figures[index].way(source, dest);
+        Cell[] steps = this.figures[i].way(source, dest);
         if (steps.length > 0 && steps[steps.length - 1].equals(dest)) {
             for (Cell step : steps) {
                 if (this.findBy(step) != -1) {
@@ -35,7 +35,7 @@ public class Logic {
                 }
             }
             rst = true;
-            this.figures[index] = this.figures[index].copy(dest);
+            this.figures[i] = this.figures[i].copy(dest);
         }
         return rst;
     }
@@ -63,7 +63,7 @@ public class Logic {
 
     private int findBy(Cell cell) {
         return IntStream.range(0, this.figures.length)
-                .filter(index -> this.figures[index] != null && this.figures[index].position().equals(cell))
+                .filter(i -> this.figures[i] != null && this.figures[i].position().equals(cell))
                 .findFirst().orElse(-1);
     }
 }
