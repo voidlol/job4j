@@ -22,6 +22,10 @@ public class TreeTest {
         tree.add(1, 4);
         tree.add(4, 5);
         tree.add(5, 6);
+        Iterator it = tree.iterator();
+        while (it.hasNext()) {
+            System.out.println(it.next());
+        }
         assertThat(tree.findBy(6).isPresent(), is(true));
         assertThat(tree.add(2, 4), is(false));
     }

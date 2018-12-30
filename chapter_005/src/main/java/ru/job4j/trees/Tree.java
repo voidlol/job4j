@@ -46,9 +46,9 @@ public class Tree<T extends Comparable<T>> implements SimpleTree<T> {
 
     public boolean isBinary() {
         boolean rst = true;
-        Iterator<Node<T>> ti = new TreeIterator(this.root).getList().iterator();
-        while (ti.hasNext()) {
-            if (ti.next().leaves().size() > 2) {
+        Iterator<T> it = this.iterator();
+        while (it.hasNext()) {
+            if (findBy(it.next()).get().leaves().size() > 2) {
                 rst = false;
                 break;
             }
@@ -60,41 +60,31 @@ public class Tree<T extends Comparable<T>> implements SimpleTree<T> {
     public Iterator<T> iterator() {
         return new Iterator<>() {
 
-            private Iterator<Node<T>> listIt = new TreeIterator(root).getList().iterator();
+            private Queue<Node<T>> treeNodes = null;
 
             @Override
             public boolean hasNext() {
-                return listIt.hasNext();
+                if (treeNodes == null) {
+                    treeNodes = new LinkedList<>();
+                    treeNodes.offer(root);
+                }
+                return !treeNodes.isEmpty();
             }
 
             @Override
             public T next() {
-                return listIt.next().getValue();
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
+                Node<T> element = treeNodes.poll();
+                if (!element.leaves().isEmpty()) {
+                    for (Node<T> node : element.leaves()) {
+                        treeNodes.offer(node);
+                    }
+                }
+                return element.getValue();
             }
         };
     }
 
-    public class TreeIterator {
-
-        List<Node<T>> values = new ArrayList<>();
-
-        public TreeIterator(Node<T> t) {
-            makeList(t.leaves());
-            values.add(t);
-        }
-
-        private void makeList(List<Node<T>> nodes) {
-            if (nodes.isEmpty()) {
-                return;
-            }
-            for (Node<T> node : nodes) {
-                makeList(node.leaves());
-                values.add(node);
-            }
-        }
-
-        public List<Node<T>> getList() {
-            return values;
-        }
-    }
 }
