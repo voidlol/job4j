@@ -182,7 +182,7 @@ public class SimpleMap<K, V> implements Iterable<SimpleMap.Node<K, V>> {
 
         @Override
         public String toString() {
-            return String.format("Key = %s%nValue = %s", key, value);
+            return String.format("%s:%s", key, value);
         }
 
     }
