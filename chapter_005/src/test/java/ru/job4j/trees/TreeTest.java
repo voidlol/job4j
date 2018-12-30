@@ -76,7 +76,7 @@ public class TreeTest {
         Tree<Integer> tree = new Tree<>(5);
         tree.add(5, 3);
         tree.add(5, 7);
-        tree.add(5, 2);
+        tree.add(3, 2);
         tree.add(3, 4);
         tree.add(3, 6);
         tree.add(3, 19);
