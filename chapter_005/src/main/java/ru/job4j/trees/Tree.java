@@ -44,18 +44,43 @@ public class Tree<T extends Comparable<T>> implements SimpleTree<T> {
         return rsl;
     }
 
+    public boolean isBinary() {
+        boolean rst = true;
+        Iterator<Node<T>> ti = new TreeIterator(this.root).getList().iterator();
+        while (ti.hasNext()) {
+            if (ti.next().leaves().size() > 2) {
+                rst = false;
+                break;
+            }
+        }
+        return rst;
+    }
+
     @Override
     public Iterator<T> iterator() {
-        return new TreeIterator(this).values.iterator();
+        return new Iterator<>() {
+
+            private Iterator<Node<T>> listIt = new TreeIterator(root).getList().iterator();
+
+            @Override
+            public boolean hasNext() {
+                return listIt.hasNext();
+            }
+
+            @Override
+            public T next() {
+                return listIt.next().getValue();
+            }
+        };
     }
 
     public class TreeIterator {
 
-        List<T> values = new ArrayList<>();
+        List<Node<T>> values = new ArrayList<>();
 
-        public TreeIterator(Tree<T> t) {
-            makeList(t.root.leaves());
-            values.add(t.root.getValue());
+        public TreeIterator(Node<T> t) {
+            makeList(t.leaves());
+            values.add(t);
         }
 
         private void makeList(List<Node<T>> nodes) {
@@ -64,11 +89,11 @@ public class Tree<T extends Comparable<T>> implements SimpleTree<T> {
             }
             for (Node<T> node : nodes) {
                 makeList(node.leaves());
-                values.add(node.getValue());
+                values.add(node);
             }
         }
 
-        public List<T> getList() {
+        public List<Node<T>> getList() {
             return values;
         }
     }
