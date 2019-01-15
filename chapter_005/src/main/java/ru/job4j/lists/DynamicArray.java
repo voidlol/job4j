@@ -38,6 +38,10 @@ public class DynamicArray<T> implements Iterable<T> {
         this.array = Arrays.copyOf(this.array, this.array.length * NEW_SIZE_MULTIPLIER);
     }
 
+    public int size() {
+        return this.index;
+    }
+
     @Override
     public Iterator<T> iterator() {
         return new Iterator<>() {
