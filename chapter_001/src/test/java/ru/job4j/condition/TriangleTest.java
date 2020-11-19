@@ -2,7 +2,7 @@ package ru.job4j.condition;
 
 import org.junit.Test;
 import static org.hamcrest.number.IsCloseTo.closeTo;
-import static org.junit.Assert.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class TriangleTest {
     @Test

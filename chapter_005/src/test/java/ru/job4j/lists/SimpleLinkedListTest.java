@@ -3,7 +3,7 @@ package ru.job4j.lists;
 import org.junit.Test;
 import org.junit.Before;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * @author - Andrey Savelov
