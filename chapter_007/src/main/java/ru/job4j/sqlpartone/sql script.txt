@@ -1,0 +1,12 @@
+create table employee(
+    id serial primary key,
+    first_name VARCHAR(10),
+    last_name VARCHAR(15),
+    salary int,
+    gender char(1)
+);
+insert into employee (first_name, last_name) values ('Andrey', 'Savelov');
+update employee set salary = 100;
+update employee set gender = 'M';
+select * from employee;
+delete from employee;
