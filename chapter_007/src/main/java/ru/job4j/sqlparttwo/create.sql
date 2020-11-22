@@ -5,8 +5,7 @@ create table rules(
 
 create table roles(
     id serial primary key,
-    name varchar(10),
-    rules_id int references rules(id)
+    name varchar(10)
 );
 
 create table users(
@@ -51,4 +50,3 @@ create table attach(
     attach text,
     item_id int references items(id)
 );
-
