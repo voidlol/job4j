@@ -7,19 +7,19 @@ package ru.job4j.lists;
  */
 public class SimpleQueue<T> {
 
-    private SimpleStack<T> ss1 = new SimpleStack<>();
-    private SimpleStack<T> ss2 = new SimpleStack<>();
+    private final SimpleStack<T> in = new SimpleStack<>();
+    private final SimpleStack<T> out = new SimpleStack<>();
 
     public T poll() {
-        if (ss2.isEmpty()) {
-            while (!ss1.isEmpty()) {
-                ss2.push(ss1.poll());
+        if (out.isEmpty()) {
+            while (!in.isEmpty()) {
+                out.push(in.poll());
             }
         }
-        return ss2.poll();
+        return out.poll();
     }
 
     public void push(T value) {
-        ss1.push(value);
+        in.push(value);
     }
 }

@@ -20,6 +20,7 @@ public class ConsoleProgress implements Runnable {
                 Thread.sleep(500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
+                Thread.currentThread().interrupt();
             }
         }
     }
