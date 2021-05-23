@@ -10,7 +10,7 @@ public class ResultFile {
         try (FileOutputStream out = new FileOutputStream("result.txt")) {
             for (int row = 0; row < 10; row++) {
                 if (row > 0) {
-                    out.write(10);
+                    out.write(System.lineSeparator().getBytes());
                 }
                 for (int column = 0; column < 10; column++) {
                     table[row][column] = (row + 1) * (column + 1);
